@@ -4,6 +4,7 @@ import {
 	Eclipse,
 	Home,
 	Languages,
+	ListPlus,
 	Loader2,
 	LogOut,
 	MessageCircleQuestionMark,
@@ -35,4 +36,5 @@ export const Icons = {
 	warehouse: (props: IconProps) => <Warehouse {...props} />,
 	check: (props: IconProps) => <Check {...props} />,
 	loader: (props: IconProps) => <Loader2 {...props} />,
+	Logo: (props: IconProps) => <ListPlus {...props} />,
 }
