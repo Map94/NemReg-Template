@@ -1,0 +1,16 @@
+{
+	"sidebar": {
+		"home": "Hem",
+		"documentation": "Dokumentation",
+		"settings": "Inställningar"
+	},
+	"validation": {
+		"required": "Fältet är obligatoriskt",
+		"min": "Värdet måste vara minst {number} tecken långt",
+		"max": "Värdet får inte överstiga {number} tecken",
+		"email": "Värdet måste vara en giltig e-postadress"
+	},
+	"home": {
+		"title": "Hej världen!"
+	}
+}

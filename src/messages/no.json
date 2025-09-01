@@ -1,0 +1,16 @@
+{
+	"sidebar": {
+		"home": "Hjem",
+		"documentation": "Dokumentasjon",
+		"settings": "Innstillinger"
+	},
+	"validation": {
+		"required": "Feltet er obligatorisk",
+		"min": "Verdien må være minst {number} tegn lang",
+		"max": "Verdien kan ikke overstige {number} tegn",
+		"email": "Verdien må være en gyldig e-postadresse"
+	},
+	"home": {
+		"title": "Hei verden!"
+	}
+}
