@@ -1,5 +1,4 @@
 import { db } from '@/lib/database/connection'
-import { AuthErrorCode, StructuredError } from '@/lib/errors'
 import { generateRandomString, slugify } from '@/lib/utils'
 import { SignInInput, SignUpInput } from '@/schemas/auth'
 import { authStore } from '@/store/auth/data'
@@ -10,6 +9,7 @@ import {
 	Tenant,
 	User,
 } from '@/store/auth/models'
+import { AuthErrorCode, StoreError } from '@/store/error'
 import bcrypt from 'bcrypt'
 import { randomBytes } from 'crypto'
 import { addDays, isWithinInterval, subDays } from 'date-fns'
@@ -67,7 +67,7 @@ export const authService = {
 
 		const user = await authStore.getUserByEmail(email)
 		if (!user) {
-			throw new StructuredError(AuthErrorCode.USER_NOT_FOUND, 'User not found')
+			throw new StoreError(AuthErrorCode.USER_NOT_FOUND)
 		}
 
 		const account = await authStore.getAccount(
@@ -75,25 +75,16 @@ export const authService = {
 			AccountProvider.Credential,
 		)
 		if (!account) {
-			throw new StructuredError(
-				AuthErrorCode.ACCOUNT_NOT_FOUND,
-				'Account not found',
-			)
+			throw new StoreError(AuthErrorCode.ACCOUNT_NOT_FOUND)
 		}
+
 		if (!account.passwordHash) {
-			throw new StructuredError(
-				AuthErrorCode.PASSWORD_HASH_NULL,
-				'Password hash is null',
-			)
+			throw new StoreError(AuthErrorCode.PASSWORD_HASH_NULL)
 		}
 
 		const samePassword = await bcrypt.compare(password, account.passwordHash)
-
 		if (!samePassword) {
-			throw new StructuredError(
-				AuthErrorCode.INVALID_CREDENTIALS,
-				'Invalid credentials',
-			)
+			throw new StoreError(AuthErrorCode.INVALID_CREDENTIALS)
 		}
 
 		return user
@@ -174,26 +165,17 @@ export const authService = {
 				error.message?.includes('UNIQUE constraint failed')
 			) {
 				if (error.message?.includes('email')) {
-					throw new StructuredError(
-						AuthErrorCode.EMAIL_ALREADY_EXISTS,
-						'Email already exists',
-					)
+					throw new StoreError(AuthErrorCode.EMAIL_ALREADY_EXISTS)
 				}
 				if (
 					error.message?.includes('slug') ||
 					error.message?.includes('name')
 				) {
-					throw new StructuredError(
-						AuthErrorCode.ORGANIZATION_NAME_EXISTS,
-						'Organization name already exists',
-					)
+					throw new StoreError(AuthErrorCode.ORGANIZATION_NAME_EXISTS)
 				}
 			}
 
-			throw new StructuredError(
-				AuthErrorCode.UNKNOWN_ERROR,
-				error.message || 'Registration failed',
-			)
+			throw new StoreError(AuthErrorCode.UNKNOWN_ERROR)
 		}
 	},
 	registerUser: async function () {},

@@ -21,8 +21,8 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Link, useRouter } from '@/i18n/navigation'
-import { AuthErrorCode, AuthErrorMessages } from '@/lib/errors'
 import { signUpValidation } from '@/schemas/auth'
+import { AuthErrorCode } from '@/store/error'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useAction } from 'next-safe-action/hooks'
@@ -33,36 +33,37 @@ import z from 'zod'
 export function SignUpForm() {
 	const router = useRouter()
 	const t = useTranslations('validation')
+	const authT = useTranslations('auth')
 	const signUpSchema = signUpValidation(t)
 	const { execute, isExecuting } = useAction(signUpAction, {
 		onError(args) {
+			if (args.error.validationErrors) {
+				toast.error(authT('errors.VALIDATION_ERROR'))
+				return
+			}
+
 			if (args.error.serverError) {
 				try {
 					const errorData = JSON.parse(args.error.serverError)
 					if (
 						errorData.code &&
-						AuthErrorMessages[errorData.code as AuthErrorCode]
+						Object.values(AuthErrorCode).includes(errorData.code)
 					) {
-						toast.error(AuthErrorMessages[errorData.code as AuthErrorCode])
+						toast.error(authT(`errors.${errorData.code}`))
 						return
 					}
-				} catch {}
+				} catch {
+					// Not a structured error, continue to fallback
+				}
 
-				toast.error('Account creation failed. Please try again later.')
-			} else if (args.error.validationErrors) {
-				toast.error(
-					'Please check your information and ensure all required fields are filled correctly.',
-				)
-			} else {
-				toast.error(
-					'Something went wrong while creating your account. Please try again later.',
-				)
+				toast.error(authT('errors.UNKNOWN_ERROR'))
+				return
 			}
+
+			toast.error(authT('errors.UNKNOWN_ERROR'))
 		},
 		onSuccess() {
-			toast.success(
-				'Account created successfully! Please check your email for verification instructions.',
-			)
+			toast.success(authT('success.ACCOUNT_CREATED'))
 			router.push('/sign-in')
 		},
 	})

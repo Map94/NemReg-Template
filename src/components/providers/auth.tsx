@@ -1,22 +1,23 @@
-"use client"
+'use client'
 
-import { tryCatch } from "@/lib/try-catch";
-import { Session, Tenant, User } from "@/store/auth/models";
-import { createContext, PropsWithChildren, useContext } from "react";
+import { Session, Tenant, User } from '@/store/auth/models'
+import { createContext, PropsWithChildren, useContext } from 'react'
 
-export type AuthContextValue = {
-	isAuthenticated: true
-	session: Session
-	user: User
-	tenant: Tenant
-	signOut: () => Promise<void>
-} | {
-	isAuthenticated: false
-	session: null
-	user: null
-	tenant: null
-	signOut: () => Promise<void>
-}
+export type AuthContextValue =
+	| {
+			isAuthenticated: true
+			session: Session
+			user: User
+			tenant: Tenant
+			signOut: () => Promise<void>
+	  }
+	| {
+			isAuthenticated: false
+			session: null
+			user: null
+			tenant: null
+			signOut: () => Promise<void>
+	  }
 
 type Props = {
 	session: Session | null
@@ -29,13 +30,16 @@ const AuthContext = createContext<AuthContextValue>({
 	session: null,
 	user: null,
 	tenant: null,
-	signOut: async () => { }
+	signOut: async () => {},
 })
 
-export default function AuthProvider({ children, ...value }: PropsWithChildren<Props>) {
+export default function AuthProvider({
+	children,
+	...value
+}: PropsWithChildren<Props>) {
 	async function signOut() {
 		try {
-			await fetch("/api/auth/sign-out", {
+			await fetch('/api/auth/sign-out', {
 				method: 'post',
 			})
 		} catch (err) {
@@ -47,24 +51,22 @@ export default function AuthProvider({ children, ...value }: PropsWithChildren<P
 
 	const contextValue: AuthContextValue = isAuthenticated
 		? {
-			isAuthenticated: true,
-			session: value.session!,
-			user: value.user!,
-			tenant: value.tenant!,
-			signOut
-		}
+				isAuthenticated: true,
+				session: value.session!,
+				user: value.user!,
+				tenant: value.tenant!,
+				signOut,
+			}
 		: {
-			isAuthenticated: false,
-			session: null,
-			user: null,
-			tenant: null,
-			signOut
-		}
+				isAuthenticated: false,
+				session: null,
+				user: null,
+				tenant: null,
+				signOut,
+			}
 
 	return (
-		<AuthContext.Provider value={contextValue}>
-			{children}
-		</AuthContext.Provider>
+		<AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
 	)
 }
 

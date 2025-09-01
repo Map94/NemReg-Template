@@ -10,6 +10,28 @@
 		"max": "Värdet får inte överstiga {number} tecken",
 		"email": "Värdet måste vara en giltig e-postadress"
 	},
+	"auth": {
+		"errors": {
+			"EMAIL_ALREADY_EXISTS": "Denna e-postadress är redan registrerad. Använd en annan e-post eller försök logga in.",
+			"ORGANIZATION_NAME_EXISTS": "En organisation med detta namn finns redan. Välj ett annat namn.",
+			"INVALID_CREDENTIALS": "Ogiltig e-post eller lösenord. Kontrollera dina uppgifter och försök igen.",
+			"USER_NOT_FOUND": "Konto hittades inte. Kontrollera din e-post eller skapa ett nytt konto.",
+			"ACCOUNT_NOT_FOUND": "Kontokonfigurationsfel. Kontakta support.",
+			"PASSWORD_HASH_NULL": "Kontosäkerhetsfel. Kontakta support.",
+			"SESSION_CREATION_FAILED": "Kan inte logga in dig just nu. Försök igen.",
+			"COOKIE_SET_FAILED": "Sessionsinställning misslyckades. Försök igen.",
+			"UNKNOWN_ERROR": "Något gick fel. Försök igen senare.",
+			"VALIDATION_ERROR": "Kontrollera din information och se till att alla obligatoriska fält är korrekt ifyllda."
+		},
+		"success": {
+			"ACCOUNT_CREATED": "Konto skapat framgångsrikt! Kontrollera din e-post för verifieringsanvisningar.",
+			"SIGN_IN_SUCCESS": "Välkommen tillbaka!",
+			"SIGN_OUT_SUCCESS": "Hej då, vi ses snart!",
+			"signIn": "Välkommen tillbaka!",
+			"signUp": "Konto skapat framgångsrikt! Välkommen till plattformen.",
+			"signOut": "Du har loggats ut framgångsrikt. Vi ses snart!"
+		}
+	},
 	"home": {
 		"title": "Hej världen!"
 	}

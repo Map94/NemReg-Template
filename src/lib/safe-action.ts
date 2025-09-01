@@ -1,9 +1,9 @@
+import { StoreError } from '@/store/error'
 import {
 	createSafeActionClient,
 	DEFAULT_SERVER_ERROR_MESSAGE,
 } from 'next-safe-action'
 import z from 'zod'
-import { StructuredError } from './errors'
 
 export class ApplicationError extends Error {}
 
@@ -25,7 +25,7 @@ const baseActionClient = createSafeActionClient({
 			clientInput,
 		})
 
-		if (err instanceof StructuredError) {
+		if (err instanceof StoreError) {
 			return JSON.stringify({ code: err.code, message: err.message })
 		}
 

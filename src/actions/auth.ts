@@ -1,12 +1,12 @@
 'use server'
 
-import { AuthErrorCode, StructuredError } from '@/lib/errors'
 import { publicAction } from '@/lib/safe-action'
 import { tryCatch } from '@/lib/try-catch'
 import { signInValidation, signUpValidation } from '@/schemas/auth'
 import { getServerSchema } from '@/schemas/utils'
 import { authService } from '@/service/auth/service'
 import { SessionPlatform } from '@/store/auth/models'
+import { AuthErrorCode, StoreError } from '@/store/error'
 import { flattenValidationErrors } from 'next-safe-action'
 
 async function getSignUpSchema() {
@@ -22,36 +22,28 @@ export const signUpAction = publicAction
 	.action(async ({ parsedInput }) => {
 		const newTenant = await tryCatch(authService.registerTenant(parsedInput))
 		if (!newTenant.success) {
-			if (newTenant.error instanceof StructuredError) {
+			if (newTenant.error instanceof StoreError) {
 				throw newTenant.error
 			}
-			throw new StructuredError(
-				AuthErrorCode.UNKNOWN_ERROR,
-				newTenant.error.message,
-			)
+			throw new StoreError(AuthErrorCode.UNKNOWN_ERROR)
 		}
-
-		// TODO: send verification mail to admin user later --HUSK DET--
 
 		const newSession = await tryCatch(
 			authService.createSession(newTenant.data.user.id, SessionPlatform.Web),
 		)
 		if (!newSession.success) {
-			throw new StructuredError(
-				AuthErrorCode.SESSION_CREATION_FAILED,
-				newSession.error.message,
-			)
+			throw new StoreError(AuthErrorCode.SESSION_CREATION_FAILED)
 		}
 
 		const setCookie = await tryCatch(
 			authService.setSessionCookie(newSession.data.token),
 		)
 		if (!setCookie.success) {
-			throw new StructuredError(
-				AuthErrorCode.COOKIE_SET_FAILED,
-				setCookie.error.message,
-			)
+			throw new StoreError(AuthErrorCode.COOKIE_SET_FAILED)
 		}
+
+		// TODO: send verification mail to admin user later --Remember this--
+		return { success: true }
 	})
 
 async function getSignInSchema() {
@@ -69,32 +61,25 @@ export const signInAction = publicAction
 			authService.authorizeCredentials(parsedInput),
 		)
 		if (!authorized.success) {
-			if (authorized.error instanceof StructuredError) {
+			if (authorized.error instanceof StoreError) {
 				throw authorized.error
 			}
-			throw new StructuredError(
-				AuthErrorCode.INVALID_CREDENTIALS,
-				authorized.error.message,
-			)
+			throw new StoreError(AuthErrorCode.INVALID_CREDENTIALS)
 		}
 
 		const newSession = await tryCatch(
 			authService.createSession(authorized.data.id, SessionPlatform.Web),
 		)
 		if (!newSession.success) {
-			throw new StructuredError(
-				AuthErrorCode.SESSION_CREATION_FAILED,
-				newSession.error.message,
-			)
+			throw new StoreError(AuthErrorCode.SESSION_CREATION_FAILED)
 		}
 
 		const setCookie = await tryCatch(
 			authService.setSessionCookie(newSession.data.token),
 		)
 		if (!setCookie.success) {
-			throw new StructuredError(
-				AuthErrorCode.COOKIE_SET_FAILED,
-				setCookie.error.message,
-			)
+			throw new StoreError(AuthErrorCode.COOKIE_SET_FAILED)
 		}
+
+		return { success: true }
 	})
