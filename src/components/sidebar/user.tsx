@@ -47,7 +47,7 @@ export function User() {
 
 	async function signOutHandler() {
 		await signOut()
-		toast('Goodbye, see you soon!')
+		toast('Logging you out...')
 		router.refresh()
 	}
 

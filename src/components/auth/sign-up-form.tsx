@@ -36,15 +36,43 @@ export function SignUpForm() {
 	const { execute, isExecuting } = useAction(signUpAction, {
 		onError(args) {
 			if (args.error.serverError) {
-				toast(args.error.serverError)
+				const errorMessage = args.error.serverError.toLowerCase()
+
+				if (errorMessage.includes('email') && errorMessage.includes('unique')) {
+					toast.error(
+						'This email address is already registered. Please use a different email or try signing in.',
+					)
+				} else if (
+					errorMessage.includes('user not found') ||
+					errorMessage.includes('invalid credentials')
+				) {
+					toast.error(
+						'Unable to create account. Please check your information and try again.',
+					)
+				} else if (
+					errorMessage.includes('organization') ||
+					errorMessage.includes('tenant')
+				) {
+					toast.error(
+						'An organization with this name already exists. Please choose a different name.',
+					)
+				} else {
+					toast.error(`Account creation failed: ${args.error.serverError}`)
+				}
 			} else if (args.error.validationErrors) {
-				toast('Invalid data sent to the server')
+				toast.error(
+					'Please check your information and ensure all required fields are filled correctly.',
+				)
 			} else {
-				toast('Unexpected error occured on the server')
+				toast.error(
+					'Something went wrong while creating your account. Please try again later.',
+				)
 			}
 		},
 		onSuccess() {
-			toast('A verification mail has been sent. Check your inbox')
+			toast.success(
+				'Account created successfully! Please check your email for verification instructions.',
+			)
 			router.push('/sign-in')
 		},
 	})
