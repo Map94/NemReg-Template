@@ -54,7 +54,9 @@ export function SignInForm() {
 					toast.error(AuthErrorMessages[errorData.code as AuthErrorCode])
 					return
 				}
-			} catch {}
+			} catch {
+				// Space left for generic fall backs...
+			}
 
 			toast.error('Sign in failed. Please check your email and password.')
 			console.error(response.serverError)

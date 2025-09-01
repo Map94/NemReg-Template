@@ -37,7 +37,6 @@ export function SignUpForm() {
 	const { execute, isExecuting } = useAction(signUpAction, {
 		onError(args) {
 			if (args.error.serverError) {
-				// Try to parse structured error
 				try {
 					const errorData = JSON.parse(args.error.serverError)
 					if (
@@ -47,11 +46,8 @@ export function SignUpForm() {
 						toast.error(AuthErrorMessages[errorData.code as AuthErrorCode])
 						return
 					}
-				} catch {
-					// Not a structured error, fall through to generic handling
-				}
+				} catch {}
 
-				// Fallback for non-structured errors
 				toast.error('Account creation failed. Please try again later.')
 			} else if (args.error.validationErrors) {
 				toast.error(
