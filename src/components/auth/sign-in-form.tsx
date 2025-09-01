@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Link, useRouter } from '@/i18n/navigation'
+import { AuthErrorCode, AuthErrorMessages } from '@/lib/errors'
 import { signInValidation } from '@/schemas/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
@@ -44,11 +45,22 @@ export function SignInForm() {
 		const response = await signInAction({ ...values })
 		console.log('Response', response)
 		if (response && response.serverError) {
-			toast.error('Please check your email and password')
+			try {
+				const errorData = JSON.parse(response.serverError)
+				if (
+					errorData.code &&
+					AuthErrorMessages[errorData.code as AuthErrorCode]
+				) {
+					toast.error(AuthErrorMessages[errorData.code as AuthErrorCode])
+					return
+				}
+			} catch {}
+
+			toast.error('Sign in failed. Please check your email and password.')
 			console.error(response.serverError)
 			return
 		}
-		toast.success('Login Successful: Welcome back!')
+		toast.success('Welcome back!')
 		router.replace('/')
 		router.refresh()
 	}

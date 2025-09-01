@@ -3,6 +3,7 @@ import {
 	DEFAULT_SERVER_ERROR_MESSAGE,
 } from 'next-safe-action'
 import z from 'zod'
+import { StructuredError } from './errors'
 
 export class ApplicationError extends Error {}
 
@@ -23,6 +24,10 @@ const baseActionClient = createSafeActionClient({
 			metadata,
 			clientInput,
 		})
+
+		if (err instanceof StructuredError) {
+			return JSON.stringify({ code: err.code, message: err.message })
+		}
 
 		if (err instanceof ApplicationError) {
 			return err.message

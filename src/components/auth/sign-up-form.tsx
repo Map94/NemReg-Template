@@ -21,6 +21,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Link, useRouter } from '@/i18n/navigation'
+import { AuthErrorCode, AuthErrorMessages } from '@/lib/errors'
 import { signUpValidation } from '@/schemas/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
@@ -36,22 +37,22 @@ export function SignUpForm() {
 	const { execute, isExecuting } = useAction(signUpAction, {
 		onError(args) {
 			if (args.error.serverError) {
-				const errorMessage = args.error.serverError.toLowerCase()
-
-				if (errorMessage.includes('email') && errorMessage.includes('unique')) {
-					toast.error(
-						'This email address is already registered. Please use a different email or try signing in.',
-					)
-				} else if (
-					errorMessage.includes('organization') ||
-					errorMessage.includes('tenant')
-				) {
-					toast.error(
-						'An organization with this name already exists. Please choose a different name.',
-					)
-				} else {
-					toast.error(`Account creation failed: ${args.error.serverError}`)
+				// Try to parse structured error
+				try {
+					const errorData = JSON.parse(args.error.serverError)
+					if (
+						errorData.code &&
+						AuthErrorMessages[errorData.code as AuthErrorCode]
+					) {
+						toast.error(AuthErrorMessages[errorData.code as AuthErrorCode])
+						return
+					}
+				} catch {
+					// Not a structured error, fall through to generic handling
 				}
+
+				// Fallback for non-structured errors
+				toast.error('Account creation failed. Please try again later.')
 			} else if (args.error.validationErrors) {
 				toast.error(
 					'Please check your information and ensure all required fields are filled correctly.',
