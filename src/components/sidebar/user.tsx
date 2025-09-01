@@ -1,6 +1,6 @@
 'use client'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -62,7 +62,9 @@ export function User() {
 							className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'>
 							<Avatar className='h-8 w-8 rounded-md'>
 								<AvatarImage src={user?.image as string} alt={user?.name} />
-								<AvatarFallback className='rounded-md'>CN</AvatarFallback>
+								<div className='flex size-8 items-center justify-center'>
+									<Icons.user className='size-6' />
+								</div>
 							</Avatar>
 							<div className='grid flex-1 text-left text-xs leading-tight'>
 								<span className='truncate font-bold leading-none'>
@@ -84,7 +86,9 @@ export function User() {
 							<div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
 								<Avatar className='h-8 w-8 rounded-md'>
 									<AvatarImage src={user?.image as string} alt={user?.name} />
-									<AvatarFallback className='rounded-md'>CN</AvatarFallback>
+									<div className='flex size-8 items-center justify-center'>
+										<Icons.user className='size-6' />
+									</div>
 								</Avatar>
 								<div className='grid flex-1 text-left text-sm leading-tight'>
 									<span className='truncate font-medium'>{user?.name}</span>
