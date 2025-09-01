@@ -44,11 +44,11 @@ export function SignInForm() {
 		const response = await signInAction({ ...values })
 		console.log('Response', response)
 		if (response && response.serverError) {
-			toast('Something went wrong: Check your spelling')
+			toast('Please check your email and password')
 			console.error(response.serverError)
 			return
 		}
-		toast('Login Succesful: Welcome back!')
+		toast('Login Successful: Welcome back!')
 		router.replace('/')
 		router.refresh()
 	}
