@@ -43,13 +43,6 @@ export function SignUpForm() {
 						'This email address is already registered. Please use a different email or try signing in.',
 					)
 				} else if (
-					errorMessage.includes('user not found') ||
-					errorMessage.includes('invalid credentials')
-				) {
-					toast.error(
-						'Unable to create account. Please check your information and try again.',
-					)
-				} else if (
 					errorMessage.includes('organization') ||
 					errorMessage.includes('tenant')
 				) {
