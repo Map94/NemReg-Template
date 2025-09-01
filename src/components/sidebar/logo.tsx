@@ -12,7 +12,7 @@ export function Logo() {
 				<Icons.warehouse className='size-4' />
 			</div>
 			<div className='grid flex-1 text-left text-sm'>
-				<span className='truncate text-xs font-bold leading-none'>Nem Reg</span>
+				<span className='truncate text-xs font-bold'>Nem Reg</span>
 				<span className='truncate text-xs text-muted-foreground leading-none'>
 					By Skancode
 				</span>
