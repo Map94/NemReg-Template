@@ -57,7 +57,7 @@ export function SignInForm() {
 					return
 				}
 			} catch {
-				// Not a structured error, continue to fallback
+				// Space left for generic fall backs...
 			}
 
 			toast.error('Sign in failed. Please check your email and password.')

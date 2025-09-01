@@ -28,6 +28,8 @@ export const signUpAction = publicAction
 			throw new StoreError(AuthErrorCode.UNKNOWN_ERROR)
 		}
 
+		// TODO: send verification mail to admin user later (REMEMBER THIS)
+
 		const newSession = await tryCatch(
 			authService.createSession(newTenant.data.user.id, SessionPlatform.Web),
 		)
