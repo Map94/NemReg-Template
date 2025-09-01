@@ -10,7 +10,7 @@
 - [ ] Update acc icon to name
 - [ ] "emailVerified": true, needs email confirmation
 - [ ] show correct timezone
-- [ ]
+- [ ] change logo to correct from Nem reg current site
 - [ ]
 - [ ]
 
