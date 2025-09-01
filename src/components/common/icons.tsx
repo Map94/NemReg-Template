@@ -36,5 +36,5 @@ export const Icons = {
 	warehouse: (props: IconProps) => <Warehouse {...props} />,
 	check: (props: IconProps) => <Check {...props} />,
 	loader: (props: IconProps) => <Loader2 {...props} />,
-	Logo: (props: IconProps) => <ListPlus {...props} />,
+	logo: (props: IconProps) => <ListPlus {...props} />,
 }
