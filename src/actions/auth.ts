@@ -44,7 +44,7 @@ export const signUpAction = publicAction
 			throw new StoreError(AuthErrorCode.COOKIE_SET_FAILED)
 		}
 
-		// TODO: send verification mail to admin user later --Remember this--
+		// TODO: send verification mail to admin user later (REMEMBER THIS)
 		return { success: true }
 	})
 
