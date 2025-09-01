@@ -31,7 +31,7 @@ export const signUpAction = publicAction
 			)
 		}
 
-		// TODO: send verification mail to admin user later --HUSK DET--
+		// TODO: send verification mail to admin user later (REMEMBER THIS)
 
 		const newSession = await tryCatch(
 			authService.createSession(newTenant.data.user.id, SessionPlatform.Web),
