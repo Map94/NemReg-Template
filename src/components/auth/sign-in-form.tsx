@@ -60,7 +60,7 @@ export function SignInForm() {
 				// Space left for generic fall backs...
 			}
 
-			toast.error('Sign in failed. Please check your email and password.')
+			toast.error(authT('errors.INVALID_CREDENTIALS'))
 			console.error(response.serverError)
 			return
 		}
