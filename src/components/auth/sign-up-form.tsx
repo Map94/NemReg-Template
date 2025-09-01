@@ -22,6 +22,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Link, useRouter } from '@/i18n/navigation'
 import { signUpValidation } from '@/schemas/auth'
+import { AuthErrorCode } from '@/store/error'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useAction } from 'next-safe-action/hooks'
@@ -32,19 +33,37 @@ import z from 'zod'
 export function SignUpForm() {
 	const router = useRouter()
 	const t = useTranslations('validation')
+	const authT = useTranslations('auth')
 	const signUpSchema = signUpValidation(t)
 	const { execute, isExecuting } = useAction(signUpAction, {
 		onError(args) {
-			if (args.error.serverError) {
-				toast(args.error.serverError)
-			} else if (args.error.validationErrors) {
-				toast('Invalid data sent to the server')
-			} else {
-				toast('Unexpected error occured on the server')
+			if (args.error.validationErrors) {
+				toast.error(authT('errors.VALIDATION_ERROR'))
+				return
 			}
+
+			if (args.error.serverError) {
+				try {
+					const errorData = JSON.parse(args.error.serverError)
+					if (
+						errorData.code &&
+						Object.values(AuthErrorCode).includes(errorData.code)
+					) {
+						toast.error(authT(`errors.${errorData.code}`))
+						return
+					}
+				} catch {
+					// Not a structured error, continue to fallback
+				}
+
+				toast.error(authT('errors.UNKNOWN_ERROR'))
+				return
+			}
+
+			toast.error(authT('errors.UNKNOWN_ERROR'))
 		},
 		onSuccess() {
-			toast('A verification mail has been sent. Check your inbox')
+			toast.success(authT('success.ACCOUNT_CREATED'))
 			router.push('/sign-in')
 		},
 	})

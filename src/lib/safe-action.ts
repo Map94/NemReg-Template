@@ -1,3 +1,4 @@
+import { StoreError } from '@/store/error'
 import {
 	createSafeActionClient,
 	DEFAULT_SERVER_ERROR_MESSAGE,
@@ -23,6 +24,10 @@ const baseActionClient = createSafeActionClient({
 			metadata,
 			clientInput,
 		})
+
+		if (err instanceof StoreError) {
+			return JSON.stringify({ code: err.code, message: err.message })
+		}
 
 		if (err instanceof ApplicationError) {
 			return err.message

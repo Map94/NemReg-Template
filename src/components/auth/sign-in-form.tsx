@@ -21,6 +21,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Link, useRouter } from '@/i18n/navigation'
 import { signInValidation } from '@/schemas/auth'
+import { AuthErrorCode } from '@/store/error'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
@@ -30,6 +31,7 @@ import z from 'zod'
 export function SignInForm() {
 	const router = useRouter()
 	const t = useTranslations('validation')
+	const authT = useTranslations('auth')
 	const signInSchema = signInValidation(t)
 
 	const form = useForm<z.infer<typeof signInSchema>>({
@@ -43,12 +45,27 @@ export function SignInForm() {
 	async function onSubmit(values: z.infer<typeof signInSchema>) {
 		const response = await signInAction({ ...values })
 		console.log('Response', response)
+
 		if (response && response.serverError) {
-			toast('Not good fam')
+			try {
+				const errorData = JSON.parse(response.serverError)
+				if (
+					errorData.code &&
+					Object.values(AuthErrorCode).includes(errorData.code)
+				) {
+					toast.error(authT(`errors.${errorData.code}`))
+					return
+				}
+			} catch {
+				// Space left for generic fall backs...
+			}
+
+			toast.error(authT('errors.INVALID_CREDENTIALS'))
 			console.error(response.serverError)
 			return
 		}
-		toast('Welcome back!')
+
+		toast.success(authT('success.signIn'))
 		router.replace('/')
 		router.refresh()
 	}

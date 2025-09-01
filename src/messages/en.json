@@ -10,6 +10,28 @@
 		"max": "Value cannot exceed {number} characters",
 		"email": "Value must be a valid email"
 	},
+	"auth": {
+		"errors": {
+			"EMAIL_ALREADY_EXISTS": "This email address is already registered. Please use a different email or try signing in.",
+			"ORGANIZATION_NAME_EXISTS": "An organization with this name already exists. Please choose a different name.",
+			"INVALID_CREDENTIALS": "Invalid email or password. Please check your credentials and try again.",
+			"USER_NOT_FOUND": "Account not found. Please check your email or create a new account.",
+			"ACCOUNT_NOT_FOUND": "Account configuration error. Please contact support.",
+			"PASSWORD_HASH_NULL": "Account security error. Please contact support.",
+			"SESSION_CREATION_FAILED": "Unable to sign you in right now. Please try again.",
+			"COOKIE_SET_FAILED": "Session setup failed. Please try again.",
+			"UNKNOWN_ERROR": "Something went wrong. Please try again later.",
+			"VALIDATION_ERROR": "Please check your information and ensure all required fields are filled correctly."
+		},
+		"success": {
+			"ACCOUNT_CREATED": "Account created successfully! Please check your email for verification instructions.",
+			"SIGN_IN_SUCCESS": "Welcome back!",
+			"SIGN_OUT_SUCCESS": "Goodbye, see you soon!",
+			"signIn": "Welcome back!",
+			"signUp": "Account created successfully! Welcome to the platform.",
+			"signOut": "You have been signed out successfully. See you soon!"
+		}
+	},
 	"home": {
 		"title": "Hello world!"
 	}

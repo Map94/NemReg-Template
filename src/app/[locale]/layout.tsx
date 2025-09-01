@@ -1,12 +1,12 @@
+import AuthProvider from '@/components/providers/auth'
 import { ThemeProvider } from '@/components/providers/theme'
 import { Toaster } from '@/components/ui/sonner'
 import { routing } from '@/i18n/routing'
+import { authService } from '@/service/auth/service'
 import type { Metadata } from 'next'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { Geist, Geist_Mono } from 'next/font/google'
 import '../globals.css'
-import AuthProvider from '@/components/providers/auth'
-import { authService } from '@/service/auth/service'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',

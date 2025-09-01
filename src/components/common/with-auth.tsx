@@ -24,7 +24,7 @@ export function withAuth<P extends WithAuthProps>(
 		const { session, user, tenant } = await authService.verify()
 		// TODO: get pathname and use for redirect after sign in
 		//
-		console.log("WithAuth::authService.verify", { session, user, tenant })
+		console.log('WithAuth::authService.verify', { session, user, tenant })
 
 		if (!session) {
 			redirect({

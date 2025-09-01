@@ -9,7 +9,7 @@ import {
 	Tenant,
 	User,
 } from '@/store/auth/models'
-import { StoreError } from '@/store/error'
+import { AuthErrorCode, StoreError } from '@/store/error'
 import bcrypt from 'bcrypt'
 import { randomBytes } from 'crypto'
 import { addDays, isWithinInterval, subDays } from 'date-fns'
@@ -67,7 +67,7 @@ export const authService = {
 
 		const user = await authStore.getUserByEmail(email)
 		if (!user) {
-			throw new StoreError('User not found')
+			throw new StoreError(AuthErrorCode.USER_NOT_FOUND)
 		}
 
 		const account = await authStore.getAccount(
@@ -75,16 +75,16 @@ export const authService = {
 			AccountProvider.Credential,
 		)
 		if (!account) {
-			throw new StoreError('Account not found')
+			throw new StoreError(AuthErrorCode.ACCOUNT_NOT_FOUND)
 		}
+
 		if (!account.passwordHash) {
-			throw new StoreError('Password hash is null')
+			throw new StoreError(AuthErrorCode.PASSWORD_HASH_NULL)
 		}
 
 		const samePassword = await bcrypt.compare(password, account.passwordHash)
-
 		if (!samePassword) {
-			throw new StoreError('Invalid credentials')
+			throw new StoreError(AuthErrorCode.INVALID_CREDENTIALS)
 		}
 
 		return user
@@ -120,44 +120,63 @@ export const authService = {
 	): Promise<{ tenant: Tenant; user: User }> {
 		const { organizationName, name, email, password } = input
 
-		const transaction = await db.transaction(async tx => {
-			const newTenant = await authStore.createTenant(
-				{
-					id: generateRandomString(32, 'tenant_'),
-					name: organizationName,
-					slug: slugify(organizationName),
-				},
-				tx,
-			)
+		try {
+			const transaction = await db.transaction(async tx => {
+				const newTenant = await authStore.createTenant(
+					{
+						id: generateRandomString(32, 'tenant_'),
+						name: organizationName,
+						slug: slugify(organizationName),
+					},
+					tx,
+				)
 
-			const newAdminUser = await authStore.createUser(
-				{
-					id: generateRandomString(32, 'user_'),
-					name,
-					email,
-					tenantId: newTenant.id,
-					active: true,
-					emailVerified: true,
-				},
-				tx,
-			)
+				const newAdminUser = await authStore.createUser(
+					{
+						id: generateRandomString(32, 'user_'),
+						name,
+						email,
+						tenantId: newTenant.id,
+						active: true,
+						emailVerified: true,
+					},
+					tx,
+				)
 
-			const passwordHash = await bcrypt.hash(password, 12)
+				const passwordHash = await bcrypt.hash(password, 12)
 
-			await authStore.createAccount(
-				{
-					id: generateRandomString(32, 'account_'),
-					provider: AccountProvider.Credential,
-					userId: newAdminUser.id,
-					passwordHash: passwordHash,
-				},
-				tx,
-			)
+				await authStore.createAccount(
+					{
+						id: generateRandomString(32, 'account_'),
+						provider: AccountProvider.Credential,
+						userId: newAdminUser.id,
+						passwordHash: passwordHash,
+					},
+					tx,
+				)
 
-			return { tenant: newTenant, user: newAdminUser }
-		})
+				return { tenant: newTenant, user: newAdminUser }
+			})
 
-		return transaction
+			return transaction
+		} catch (error: any) {
+			if (
+				error.code === 'SQLITE_CONSTRAINT_UNIQUE' ||
+				error.message?.includes('UNIQUE constraint failed')
+			) {
+				if (error.message?.includes('email')) {
+					throw new StoreError(AuthErrorCode.EMAIL_ALREADY_EXISTS)
+				}
+				if (
+					error.message?.includes('slug') ||
+					error.message?.includes('name')
+				) {
+					throw new StoreError(AuthErrorCode.ORGANIZATION_NAME_EXISTS)
+				}
+			}
+
+			throw new StoreError(AuthErrorCode.UNKNOWN_ERROR)
+		}
 	},
 	registerUser: async function () {},
 	invalidateSession: async function (

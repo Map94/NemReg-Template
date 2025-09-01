@@ -23,7 +23,7 @@ import {
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { Locale } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import { toast } from 'sonner'
 import { Icons } from '../common/icons'
@@ -35,6 +35,7 @@ export function User() {
 	const router = useRouter()
 	const locale = useLocale()
 	const pathname = usePathname()
+	const authT = useTranslations('auth')
 
 	const switchLocale = (newLocale: Locale) => {
 		if (newLocale !== locale) {
@@ -47,7 +48,7 @@ export function User() {
 
 	async function signOutHandler() {
 		await signOut()
-		toast('Goodbye, see you soon!')
+		toast.success(authT('success.signOut'))
 		router.refresh()
 	}
 
