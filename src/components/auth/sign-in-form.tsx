@@ -38,11 +38,20 @@ export function SignInForm() {
 	const { execute, isExecuting } = useAction(signInAction, {
 		onError(args) {
 			if (args.error.serverError) {
-				if (args.error.serverError.match(/^[A-Z_]+$/)) {
-					toast.error(authT(`errors.${args.error.serverError}`))
-				} else {
-					toast.error(args.error.serverError) // Fallback dont remove
+				try {
+					const errorData = JSON.parse(args.error.serverError)
+					if (errorData.code) {
+						toast.error(authT(`errors.${errorData.code}`))
+						return
+					}
+				} catch {
+					if (args.error.serverError.match(/^[A-Z_]+$/)) {
+						toast.error(authT(`errors.${args.error.serverError}`))
+						return
+					}
 				}
+
+				toast.error(args.error.serverError)
 			} else {
 				toast.error(authT('errors.UNKNOWN_ERROR'))
 			}

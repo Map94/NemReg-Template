@@ -49,7 +49,7 @@ export function User() {
 	const { user, signOut } = useAuth()
 
 	async function signOutHandler() {
-		if (isSigningOut) return // Prevent multiple clicks
+		if (isSigningOut) return
 
 		setIsSigningOut(true)
 		try {
@@ -58,7 +58,6 @@ export function User() {
 			router.refresh()
 		} catch (error) {
 			toast.error(authT('errors.UNKNOWN_ERROR'))
-			console.error('Sign out error:', error)
 		} finally {
 			setIsSigningOut(false)
 		}

@@ -67,7 +67,7 @@ export const authService = {
 
 		const user = await authStore.getUserByEmail(email)
 		if (!user) {
-			throw new StoreError(AuthErrorCode.USER_NOT_FOUND)
+			throw new StoreError('USER_NOT_FOUND')
 		}
 
 		const account = await authStore.getAccount(
@@ -75,15 +75,15 @@ export const authService = {
 			AccountProvider.Credential,
 		)
 		if (!account) {
-			throw new StoreError(AuthErrorCode.ACCOUNT_NOT_FOUND)
+			throw new StoreError('ACCOUNT_NOT_FOUND')
 		}
 
 		if (!account.passwordHash) {
-			throw new StoreError(AuthErrorCode.PASSWORD_HASH_NULL)
+			throw new StoreError('PASSWORD_HASH_NULL')
 		}
 		const samePassword = await bcrypt.compare(password, account.passwordHash)
 		if (!samePassword) {
-			throw new StoreError(AuthErrorCode.INVALID_CREDENTIALS)
+			throw new StoreError('INVALID_CREDENTIALS')
 		}
 
 		return user
@@ -194,5 +194,8 @@ export const authService = {
 	},
 }
 function authT(arg0: string): string | undefined {
+	throw new Error('Function not implemented.')
+}
+function useTranslations(arg0: string) {
 	throw new Error('Function not implemented.')
 }
