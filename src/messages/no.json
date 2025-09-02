@@ -15,7 +15,7 @@
 			"USER_NOT_FOUND": "Konto ikke funnet. Sjekk e-posten din eller opprett en ny konto.",
 			"ACCOUNT_NOT_FOUND": "Kontokonfigurasjonsfeil. Kontakt kundestøtte.",
 			"PASSWORD_HASH_NULL": "Kontosikkerhetsfeil. Kontakt kundestøtte.",
-			"INVALID_CREDENTIALS": "Ugyldig e-post eller passord. Sjekk legitimasjonen din og prøv igjen.",
+			"INVALID_CREDENTIALS": "Ugyldig e-post eller passord. Sjekk opplysningene dine og prøv igjen.",
 			"UNKNOWN_ERROR": "Noe gikk galt. Prøv igjen senere."
 		},
 		"success": {

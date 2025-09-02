@@ -67,7 +67,7 @@ export const authService = {
 
 		const user = await authStore.getUserByEmail(email)
 		if (!user) {
-			throw new StoreError('USER_NOT_FOUND')
+			throw new StoreError(AuthErrorCode.USER_NOT_FOUND)
 		}
 
 		const account = await authStore.getAccount(
@@ -75,15 +75,15 @@ export const authService = {
 			AccountProvider.Credential,
 		)
 		if (!account) {
-			throw new StoreError('ACCOUNT_NOT_FOUND')
+			throw new StoreError(AuthErrorCode.ACCOUNT_NOT_FOUND)
 		}
 
 		if (!account.passwordHash) {
-			throw new StoreError('PASSWORD_HASH_NULL')
+			throw new StoreError(AuthErrorCode.PASSWORD_HASH_NULL)
 		}
 		const samePassword = await bcrypt.compare(password, account.passwordHash)
 		if (!samePassword) {
-			throw new StoreError('INVALID_CREDENTIALS')
+			throw new StoreError(AuthErrorCode.INVALID_CREDENTIALS)
 		}
 
 		return user

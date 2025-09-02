@@ -15,7 +15,15 @@ export class StoreError extends Error {
 
 	constructor(message: string, code?: string) {
 		super(message)
-		this.code = code ?? message
+		// If only message is provided and it's an enum value, use it as the code
+		if (
+			!code &&
+			Object.values(AuthErrorCode).includes(message as AuthErrorCode)
+		) {
+			this.code = message
+		} else {
+			this.code = code ?? AuthErrorCode.UNKNOWN_ERROR
+		}
 		this.name = 'StoreError'
 	}
 }
