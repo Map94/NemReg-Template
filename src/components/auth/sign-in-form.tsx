@@ -21,8 +21,8 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Link, useRouter } from '@/i18n/navigation'
+import { handleAuthError } from '@/lib/error-utils'
 import { signInValidation } from '@/schemas/auth'
-import { AuthErrorCode } from '@/store/error'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useAction } from 'next-safe-action/hooks'
@@ -39,28 +39,8 @@ export function SignInForm() {
 	const { execute, isExecuting } = useAction(signInAction, {
 		onError(args) {
 			if (args.error.serverError) {
-				try {
-					const errorData = JSON.parse(args.error.serverError)
-					if (
-						errorData.code &&
-						Object.values(AuthErrorCode).includes(errorData.code)
-					) {
-						toast.error(authT(`errors.${errorData.code}`))
-						return
-					}
-				} catch {
-					if (
-						args.error.serverError.match(/^[A-Z_]+$/) &&
-						Object.values(AuthErrorCode).includes(
-							args.error.serverError as AuthErrorCode,
-						)
-					) {
-						toast.error(authT(`errors.${args.error.serverError}`))
-						return
-					}
-				}
-
-				toast.error(authT('errors.UNKNOWN_ERROR'))
+				const errorMessage = handleAuthError(args.error.serverError, authT)
+				toast.error(errorMessage)
 			} else {
 				toast.error(authT('errors.UNKNOWN_ERROR'))
 			}
