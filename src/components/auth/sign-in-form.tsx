@@ -1,6 +1,7 @@
 'use client'
 
 import { signInAction } from '@/actions/auth'
+import { Icons } from '@/components/common/icons'
 import { Button } from '@/components/ui/button'
 import {
 	Card,
@@ -21,9 +22,9 @@ import {
 import { Input } from '@/components/ui/input'
 import { Link, useRouter } from '@/i18n/navigation'
 import { signInValidation } from '@/schemas/auth'
-import { AuthErrorCode } from '@/store/error'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
+import { useAction } from 'next-safe-action/hooks'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import z from 'zod'
@@ -34,6 +35,25 @@ export function SignInForm() {
 	const authT = useTranslations('auth')
 	const signInSchema = signInValidation(t)
 
+	const { execute, isExecuting } = useAction(signInAction, {
+		onError(args) {
+			if (args.error.serverError) {
+				if (args.error.serverError.match(/^[A-Z_]+$/)) {
+					toast.error(authT(`errors.${args.error.serverError}`))
+				} else {
+					toast.error(args.error.serverError) // Fallback dont remove
+				}
+			} else {
+				toast.error(authT('errors.UNKNOWN_ERROR'))
+			}
+		},
+		onSuccess() {
+			toast.success(authT('success.signIn'))
+			router.replace('/')
+			router.refresh()
+		},
+	})
+
 	const form = useForm<z.infer<typeof signInSchema>>({
 		resolver: zodResolver(signInSchema),
 		defaultValues: {
@@ -42,32 +62,8 @@ export function SignInForm() {
 		},
 	})
 
-	async function onSubmit(values: z.infer<typeof signInSchema>) {
-		const response = await signInAction({ ...values })
-		console.log('Response', response)
-
-		if (response && response.serverError) {
-			try {
-				const errorData = JSON.parse(response.serverError)
-				if (
-					errorData.code &&
-					Object.values(AuthErrorCode).includes(errorData.code)
-				) {
-					toast.error(authT(`errors.${errorData.code}`))
-					return
-				}
-			} catch {
-				// Space left for generic fall backs...
-			}
-
-			toast.error(authT('errors.INVALID_CREDENTIALS'))
-			console.error(response.serverError)
-			return
-		}
-
-		toast.success(authT('success.signIn'))
-		router.replace('/')
-		router.refresh()
+	function onSubmit(values: z.infer<typeof signInSchema>) {
+		execute(values)
 	}
 	return (
 		<Card className='w-full max-w-sm'>
@@ -113,7 +109,12 @@ export function SignInForm() {
 				</Form>
 			</CardContent>
 			<CardFooter className='flex-col gap-2'>
-				<Button form='sign-in-form' type='submit' className='w-full'>
+				<Button
+					form='sign-in-form'
+					type='submit'
+					className='w-full'
+					disabled={isExecuting}>
+					{isExecuting && <Icons.loader className='animate-spin mr-2' />}
 					Login
 				</Button>
 				<div className='mt-4 text-center text-sm'>

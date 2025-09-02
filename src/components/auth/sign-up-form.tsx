@@ -37,9 +37,12 @@ export function SignUpForm() {
 	const signUpSchema = signUpValidation(t)
 	const { execute, isExecuting } = useAction(signUpAction, {
 		onError(args) {
-			if (args.error.validationErrors) {
-				toast.error(authT('errors.VALIDATION_ERROR'))
-				return
+			if (args.error.serverError) {
+				toast.error(args.error.serverError)
+			} else if (args.error.validationErrors) {
+				toast.error(authT('errors.UNKNOWN_ERROR'))
+			} else {
+				toast.error(authT('errors.UNKNOWN_ERROR'))
 			}
 
 			if (args.error.serverError) {
@@ -89,7 +92,7 @@ export function SignUpForm() {
 			<CardContent>
 				<Form {...form}>
 					<form
-						id='sign-in-form'
+						id='sign-up-form'
 						onSubmit={form.handleSubmit(execute)}
 						className='space-y-4'>
 						<FormField
@@ -152,8 +155,12 @@ export function SignUpForm() {
 				</Form>
 			</CardContent>
 			<CardFooter className='flex-col gap-2'>
-				<Button form='sign-in-form' type='submit' className='w-full'>
-					{isExecuting && <Icons.loader className='animate-spin' />}
+				<Button
+					form='sign-up-form'
+					type='submit'
+					className='w-full'
+					disabled={isExecuting}>
+					{isExecuting && <Icons.loader className='animate-spin mr-2' />}
 					Create
 				</Button>
 				<div className='mt-4 text-center text-sm'>

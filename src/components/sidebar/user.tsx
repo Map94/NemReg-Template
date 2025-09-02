@@ -25,6 +25,7 @@ import { Locale } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
 import { useLocale, useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
+import { useState } from 'react'
 import { toast } from 'sonner'
 import { Icons } from '../common/icons'
 import { useAuth } from '../providers/auth'
@@ -36,6 +37,7 @@ export function User() {
 	const locale = useLocale()
 	const pathname = usePathname()
 	const authT = useTranslations('auth')
+	const [isSigningOut, setIsSigningOut] = useState(false)
 
 	const switchLocale = (newLocale: Locale) => {
 		if (newLocale !== locale) {
@@ -47,9 +49,19 @@ export function User() {
 	const { user, signOut } = useAuth()
 
 	async function signOutHandler() {
-		await signOut()
-		toast.success(authT('success.signOut'))
-		router.refresh()
+		if (isSigningOut) return // Prevent multiple clicks
+
+		setIsSigningOut(true)
+		try {
+			await signOut()
+			toast.success(authT('success.signOut'))
+			router.refresh()
+		} catch (error) {
+			toast.error(authT('errors.UNKNOWN_ERROR'))
+			console.error('Sign out error:', error)
+		} finally {
+			setIsSigningOut(false)
+		}
 	}
 
 	return (
@@ -185,9 +197,13 @@ export function User() {
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem onClick={signOutHandler}>
-							<Icons.logout />
-							Log out
+						<DropdownMenuItem onClick={signOutHandler} disabled={isSigningOut}>
+							{isSigningOut ? (
+								<Icons.loader className='animate-spin' />
+							) : (
+								<Icons.logout />
+							)}
+							{isSigningOut ? 'Signing out...' : 'Log out'}
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>

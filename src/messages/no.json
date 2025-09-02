@@ -12,21 +12,13 @@
 	},
 	"auth": {
 		"errors": {
-			"EMAIL_ALREADY_EXISTS": "Denne e-postadressen er allerede registrert. Bruk en annen e-post eller prøv å logge inn.",
-			"ORGANIZATION_NAME_EXISTS": "En organisasjon med dette navnet eksisterer allerede. Velg et annet navn.",
-			"INVALID_CREDENTIALS": "Ugyldig e-post eller passord. Sjekk opplysningene dine og prøv igjen.",
 			"USER_NOT_FOUND": "Konto ikke funnet. Sjekk e-posten din eller opprett en ny konto.",
 			"ACCOUNT_NOT_FOUND": "Kontokonfigurasjonsfeil. Kontakt kundestøtte.",
 			"PASSWORD_HASH_NULL": "Kontosikkerhetsfeil. Kontakt kundestøtte.",
-			"SESSION_CREATION_FAILED": "Kan ikke logge deg inn akkurat nå. Prøv igjen.",
-			"COOKIE_SET_FAILED": "Øktoppsettet mislyktes. Prøv igjen.",
-			"UNKNOWN_ERROR": "Noe gikk galt. Prøv igjen senere.",
-			"VALIDATION_ERROR": "Sjekk opplysningene dine og sørg for at alle påkrevde felt er fylt ut riktig."
+			"INVALID_CREDENTIALS": "Ugyldig e-post eller passord. Sjekk legitimasjonen din og prøv igjen.",
+			"UNKNOWN_ERROR": "Noe gikk galt. Prøv igjen senere."
 		},
 		"success": {
-			"ACCOUNT_CREATED": "Konto opprettet vellykket! Sjekk e-posten din for bekreftelsesinnstruksjoner.",
-			"SIGN_IN_SUCCESS": "Velkommen tilbake!",
-			"SIGN_OUT_SUCCESS": "Ha det, vi sees snart!",
 			"signIn": "Velkommen tilbake!",
 			"signUp": "Konto opprettet vellykket! Velkommen til plattformen.",
 			"signOut": "Du har blitt logget ut med suksess. Vi sees snart!"
