@@ -193,9 +193,3 @@ export const authService = {
 		return authStore.deleteSession(token)
 	},
 }
-function authT(arg0: string): string | undefined {
-	throw new Error('Function not implemented.')
-}
-function useTranslations(arg0: string) {
-	throw new Error('Function not implemented.')
-}

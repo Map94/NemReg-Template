@@ -12,13 +12,11 @@
 	},
 	"auth": {
 		"errors": {
-			"errors": {
-				"USER_NOT_FOUND": "Konto ikke fundet. Tjek venligst din e-mail eller opret en ny konto.",
-				"ACCOUNT_NOT_FOUND": "Kontokonfigurationsfejl. Kontakt venligst support.",
-				"PASSWORD_HASH_NULL": "Kontosikkerhedsfejl. Kontakt venligst support.",
-				"INVALID_CREDENTIALS": "Ugyldig e-mail eller adgangskode. Tjek venligst dine oplysninger og prøv igen.",
-				"UNKNOWN_ERROR": "Noget gik galt. Prøv venligst igen senere."
-			}
+			"USER_NOT_FOUND": "Konto ikke fundet. Tjek venligst din e-mail eller opret en ny konto.",
+			"ACCOUNT_NOT_FOUND": "Kontokonfigurationsfejl. Kontakt venligst support.",
+			"PASSWORD_HASH_NULL": "Kontosikkerhedsfejl. Kontakt venligst support.",
+			"INVALID_CREDENTIALS": "Ugyldig e-mail eller adgangskode. Tjek venligst dine oplysninger og prøv igen.",
+			"UNKNOWN_ERROR": "Noget gik galt. Prøv venligst igen senere."
 		},
 		"success": {
 			"signIn": "Velkommen tilbage!",

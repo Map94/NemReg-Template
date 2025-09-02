@@ -56,7 +56,7 @@ export function SignUpForm() {
 			}
 		},
 		onSuccess() {
-			toast.success(authT('success.ACCOUNT_CREATED'))
+			toast.success(authT('success.signUp'))
 			router.push('/sign-in')
 		},
 	})
