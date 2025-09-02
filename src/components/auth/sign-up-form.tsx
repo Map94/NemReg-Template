@@ -22,6 +22,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Link, useRouter } from '@/i18n/navigation'
 import { signUpValidation } from '@/schemas/auth'
+import { AuthErrorCode } from '@/store/error'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useAction } from 'next-safe-action/hooks'
@@ -39,18 +40,26 @@ export function SignUpForm() {
 			if (args.error.serverError) {
 				try {
 					const errorData = JSON.parse(args.error.serverError)
-					if (errorData.code) {
+					if (
+						errorData.code &&
+						Object.values(AuthErrorCode).includes(errorData.code)
+					) {
 						toast.error(authT(`errors.${errorData.code}`))
 						return
 					}
 				} catch {
-					if (args.error.serverError.match(/^[A-Z_]+$/)) {
+					if (
+						args.error.serverError.match(/^[A-Z_]+$/) &&
+						Object.values(AuthErrorCode).includes(
+							args.error.serverError as AuthErrorCode,
+						)
+					) {
 						toast.error(authT(`errors.${args.error.serverError}`))
 						return
 					}
 				}
 
-				toast.error(args.error.serverError)
+				toast.error(authT('errors.UNKNOWN_ERROR'))
 			} else {
 				toast.error(authT('errors.UNKNOWN_ERROR'))
 			}
