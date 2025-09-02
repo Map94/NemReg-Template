@@ -21,7 +21,8 @@
 		"success": {
 			"signIn": "Welcome back!",
 			"signUp": "Account created successfully! Welcome to the platform.",
-			"signOut": "You have been signed out successfully. See you soon!"
+			"signOut": "You have been signed out successfully. See you soon!",
+			"signingOut": "Signing out..."
 		}
 	},
 	"home": {

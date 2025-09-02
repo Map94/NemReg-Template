@@ -202,7 +202,7 @@ export function User() {
 							) : (
 								<Icons.logout />
 							)}
-							{isSigningOut ? 'Signing out...' : 'Log out'}
+							{isSigningOut ? authT('success.signingOut') : 'Log out'}
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>

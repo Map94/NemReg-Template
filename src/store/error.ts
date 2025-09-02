@@ -15,7 +15,7 @@ export class StoreError extends Error {
 
 	constructor(message: string, code?: string) {
 		super(message)
-		this.code = code || message
+		this.code = code ?? message
 		this.name = 'StoreError'
 	}
 }

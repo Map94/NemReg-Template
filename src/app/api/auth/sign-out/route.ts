@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function POST(r: NextRequest) {
 	const { session } = await authService.verify()
 	if (!session) {
-		return NextResponse.json({ message: 'success' }, { status: 403 })
+		return NextResponse.json({ message: 'success' }, { status: 200 })
 	}
 
 	await tryCatch(authService.invalidateSession(session.token))

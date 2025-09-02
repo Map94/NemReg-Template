@@ -21,7 +21,8 @@
 		"success": {
 			"signIn": "Velkommen tilbake!",
 			"signUp": "Konto opprettet vellykket! Velkommen til plattformen.",
-			"signOut": "Du har blitt logget ut med suksess. Vi sees snart!"
+			"signOut": "Du har blitt logget ut med suksess. Vi sees snart!",
+			"signingOut": "Logger ut..."
 		}
 	},
 	"home": {
