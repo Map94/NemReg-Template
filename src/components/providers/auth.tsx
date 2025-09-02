@@ -38,12 +38,12 @@ export default function AuthProvider({
 	...value
 }: PropsWithChildren<Props>) {
 	async function signOut() {
-		try {
-			await fetch('/api/auth/sign-out', {
-				method: 'post',
-			})
-		} catch (err) {
-			console.error(err)
+		const response = await fetch('/api/auth/sign-out', {
+			method: 'post',
+		})
+
+		if (!response.ok) {
+			throw new Error('Failed to sign out')
 		}
 	}
 

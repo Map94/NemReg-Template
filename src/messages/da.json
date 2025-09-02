@@ -12,24 +12,17 @@
 	},
 	"auth": {
 		"errors": {
-			"EMAIL_ALREADY_EXISTS": "Denne e-mailadresse er allerede registreret. Brug venligst en anden e-mail eller prøv at logge ind.",
-			"ORGANIZATION_NAME_EXISTS": "En organisation med dette navn eksisterer allerede. Vælg venligst et andet navn.",
-			"INVALID_CREDENTIALS": "Ugyldig e-mail eller adgangskode. Tjek venligst dine oplysninger og prøv igen.",
 			"USER_NOT_FOUND": "Konto ikke fundet. Tjek venligst din e-mail eller opret en ny konto.",
 			"ACCOUNT_NOT_FOUND": "Kontokonfigurationsfejl. Kontakt venligst support.",
 			"PASSWORD_HASH_NULL": "Kontosikkerhedsfejl. Kontakt venligst support.",
-			"SESSION_CREATION_FAILED": "Kan ikke logge dig ind lige nu. Prøv venligst igen.",
-			"COOKIE_SET_FAILED": "Sessionsopsætning mislykkedes. Prøv venligst igen.",
-			"UNKNOWN_ERROR": "Noget gik galt. Prøv venligst igen senere.",
-			"VALIDATION_ERROR": "Tjek venligst dine oplysninger og sørg for, at alle påkrævede felter er udfyldt korrekt."
+			"INVALID_CREDENTIALS": "Ugyldig e-mail eller adgangskode. Tjek venligst dine oplysninger og prøv igen.",
+			"UNKNOWN_ERROR": "Noget gik galt. Prøv venligst igen senere."
 		},
 		"success": {
-			"ACCOUNT_CREATED": "Konto oprettet med succes! Tjek venligst din e-mail for bekræftelsesinstruktioner.",
-			"SIGN_IN_SUCCESS": "Velkommen tilbage!",
-			"SIGN_OUT_SUCCESS": "Farvel, vi ses snart!",
 			"signIn": "Velkommen tilbage!",
 			"signUp": "Konto oprettet med succes! Velkommen til platformen.",
-			"signOut": "Du er blevet logget ud med succes. Vi ses snart!"
+			"signOut": "Du er nu logget ud. Vi ses snart!",
+			"signingOut": "Logger ud..."
 		}
 	},
 	"home": {

@@ -81,7 +81,6 @@ export const authService = {
 		if (!account.passwordHash) {
 			throw new StoreError(AuthErrorCode.PASSWORD_HASH_NULL)
 		}
-
 		const samePassword = await bcrypt.compare(password, account.passwordHash)
 		if (!samePassword) {
 			throw new StoreError(AuthErrorCode.INVALID_CREDENTIALS)
