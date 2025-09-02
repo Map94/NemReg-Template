@@ -11,19 +11,11 @@ export enum AuthErrorCode {
 }
 
 export class StoreError extends Error {
-	public code?: string
+	public code: AuthErrorCode
 
-	constructor(message: string, code?: string) {
-		super(message)
-		// If only message is provided and it's an enum value, use it as the code
-		if (
-			!code &&
-			Object.values(AuthErrorCode).includes(message as AuthErrorCode)
-		) {
-			this.code = message
-		} else {
-			this.code = code ?? AuthErrorCode.UNKNOWN_ERROR
-		}
+	constructor(code: AuthErrorCode, message?: string) {
+		super(message || code)
+		this.code = code
 		this.name = 'StoreError'
 	}
 }
