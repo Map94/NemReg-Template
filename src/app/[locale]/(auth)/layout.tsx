@@ -93,7 +93,7 @@ function ActionButton() {
 									<Icons.check
 										className={cn(
 											'hidden ml-auto',
-											resolvedTheme == 'light' && 'block',
+											resolvedTheme === 'light' && 'block',
 										)}
 									/>
 								</DropdownMenuItem>
@@ -102,7 +102,7 @@ function ActionButton() {
 									<Icons.check
 										className={cn(
 											'hidden ml-auto',
-											resolvedTheme == 'dark' && 'block',
+											resolvedTheme === 'dark' && 'block',
 										)}
 									/>
 								</DropdownMenuItem>
