@@ -18,7 +18,7 @@
 
 - [ ] Send mail on correct signup
 - [ ] Make user/label page
-- [ ] Add language button to signin page
+- [x] Add language button to signin page
 - [ ]
 - [ ]
 - [ ]
