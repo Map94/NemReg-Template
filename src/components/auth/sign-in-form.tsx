@@ -20,11 +20,11 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Link, useRouter } from '@/i18n/navigation'
+import { Link, usePathname, useRouter } from '@/i18n/navigation'
 import { handleAuthError } from '@/lib/error-utils'
 import { signInValidation } from '@/schemas/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useAction } from 'next-safe-action/hooks'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -35,6 +35,8 @@ export function SignInForm() {
 	const t = useTranslations('validation')
 	const authT = useTranslations('auth')
 	const signInSchema = signInValidation(t)
+	const locale = useLocale()
+	const pathname = usePathname()
 
 	const { execute, isExecuting } = useAction(signInAction, {
 		onError(args) {
@@ -63,6 +65,7 @@ export function SignInForm() {
 	function onSubmit(values: z.infer<typeof signInSchema>) {
 		execute(values)
 	}
+
 	return (
 		<Card className='w-full max-w-sm'>
 			<CardHeader>
