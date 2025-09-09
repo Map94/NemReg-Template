@@ -6,7 +6,7 @@
 - [x] change name Nem reg
 - [x] fix G in Nem reg is cut off on logo
 - [ ] The mysterious + button top right
-- [ ] change hello world
+- [x] change hello world
 - [x] Update acc icon to user icon
 - [ ] "emailVerified": true, needs email confirmation
 - [ ] show correct timezone
@@ -17,7 +17,7 @@
 ## Features
 
 - [ ] Send mail on correct signup
-- [ ] Make user/label page
+- [ ] Make user/table page
 - [ ] Add language button to signin page
 - [ ]
 - [ ]
