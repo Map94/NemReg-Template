@@ -1,3 +1,4 @@
+import { getTableAction } from '@/actions/table'
 import { Icons } from '@/components/common/icons'
 import { Page } from '@/components/common/page'
 import { withAuth, WithAuthProps } from '@/components/common/with-auth'
@@ -7,9 +8,12 @@ import {
 } from '@/components/table-overview/table-view-container'
 
 import { Button } from '@/components/ui/button'
+
 import { getTranslations } from 'next-intl/server'
+import Link from 'next/link'
 
 async function Home({ user, tenant }: WithAuthProps) {
+
 	const t = await getTranslations('home')
 
 	// Mock table data - replace with your actual table data
@@ -41,10 +45,19 @@ async function Home({ user, tenant }: WithAuthProps) {
 		},
 	]
 
+	const homeT = await getTranslations('HomePage')
+	const tablesT = await getTranslations('tables')
+
+	// Fetch user's tables
+	const tablesResult = await getTableAction({ page: 1, limit: 10 })
+	const tables = tablesResult?.data?.success
+		? (tablesResult.data.data ?? [])
+		: []
+
 	return (
 		<ViewProvider>
 			<Page.Header>
-				<Page.Title>{t('title')}</Page.Title>
+				<Page.Title>{homeT('title')}</Page.Title>
 				<Page.Actions>
 					<Button size='icon' variant='ghost'>
 						<Icons.plus />
@@ -53,8 +66,10 @@ async function Home({ user, tenant }: WithAuthProps) {
 				</Page.Actions>
 			</Page.Header>
 			<Page.Content>
+
 				<div className='font-sans flex items-center justify-items-start pt-5 pb-20 gap-16'>
 					<TableViewContainer tables={tables} user={user} />
+
 				</div>
 			</Page.Content>
 		</ViewProvider>
