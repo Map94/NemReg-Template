@@ -65,56 +65,49 @@ export const tableService = {
 			favoriteOnly?: boolean
 		},
 	) {
-		try {
-			const { page = 1, limit = 10, search, favoriteOnly } = options || {}
-			let whereConditions = and(
-				eq(clientTable.userId, userId),
-				eq(clientTable.clientId, clientId),
-				eq(clientTable.isArchived, false),
+		const { page = 1, limit = 10, search, favoriteOnly } = options || {}
+		let whereConditions = and(
+			eq(clientTable.clientId, clientId),
+			eq(clientTable.isArchived, false),
+		)
+
+		if (search) {
+			whereConditions = and(
+				whereConditions,
+				sql`${clientTable.name} LIKE ${`%${search}%`}`,
 			)
+		}
 
-			if (search) {
-				whereConditions = and(
-					whereConditions,
-					sql`${clientTable.name} LIKE ${`%${search}%`}`,
-				)
-			}
+		if (favoriteOnly) {
+			whereConditions = and(whereConditions, eq(clientTable.isFavorite, true))
+		}
 
-			if (favoriteOnly) {
-				whereConditions = and(whereConditions, eq(clientTable.isFavorite, true))
-			}
+		const tables = await db
+			.select()
+			.from(clientTable)
+			.where(whereConditions)
+			.limit(limit)
+			.offset((page - 1) * limit)
+			.orderBy(sql`${clientTable.inserted} DESC`)
 
-			const tables = await db
-				.select()
-				.from(clientTable)
-				.where(whereConditions)
-				.limit(limit)
-				.offset((page - 1) * limit)
-				.orderBy(sql`${clientTable.inserted} DESC`)
+		const totalResult = await db
+			.select({ count: sql<number>`count(*)` })
+			.from(clientTable)
+			.where(whereConditions)
 
-			const totalResult = await db
-				.select({ count: sql<number>`count(*)` })
-				.from(clientTable)
-				.where(whereConditions)
+		const total = totalResult[0]?.count || 0
+		const pages = Math.ceil(total / limit)
 
-			const total = totalResult[0]?.count || 0
-			const pages = Math.ceil(total / limit)
-
-			return {
-				success: true,
-				data: tables,
-				pagination: {
-					page,
-					limit,
-					total,
-					pages,
-					hasNext: page < pages,
-					hasPrev: page > 1,
-				},
-			}
-		} catch (error) {
-			console.error('Error getting tables:', error)
-			return { success: false, error: 'Failed to get tables' }
+		return {
+			data: tables,
+			pagination: {
+				page,
+				limit,
+				total,
+				pages,
+				hasNext: page < pages,
+				hasPrev: page > 1,
+			},
 		}
 	},
 

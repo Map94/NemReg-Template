@@ -14,13 +14,23 @@ import {
 	CardTitle,
 } from '@/components/ui/card'
 import { Link } from '@/i18n/navigation'
+import { SimplifiedDataColumn } from '@/lib/type/table'
+import { useTranslations } from 'next-intl'
 import { createContext, useContext, useState } from 'react'
 
 interface Table {
 	id: string
 	name: string
-	description: string
-	rows: string
+	tableName: string
+	description: string | null
+	columns: SimplifiedDataColumn[]
+	inserted: string | null
+	updatedAt: string | null
+	userId: string
+	clientId: string
+	isFavorite: boolean | null
+	isArchived: boolean | null
+	recordCount: number | null
 }
 
 interface TableViewContainerProps {
@@ -78,7 +88,9 @@ export function TableViewContent({
 	tables: Table[]
 	user: any
 }) {
+	console.log('tables', tables)
 	const { isGridView } = useViewContext()
+	const t = useTranslations()
 
 	return (
 		<main
@@ -121,7 +133,7 @@ export function TableViewContent({
 								</p>
 								<div className='flex items-center gap-1 px-2 py-1 bg-emerald-500/15 text-emerald-600 rounded-sm font-semibold'>
 									<Icons.rows className='size-4.5 ' />
-									<p>{table.rows}</p>
+									<p>{table.recordCount}</p>
 								</div>
 							</CardFooter>
 						</Card>
@@ -153,7 +165,7 @@ export function TableViewContent({
 							<div className='flex items-center gap-4 flex-shrink-0'>
 								<div className='flex items-center gap-1 px-2 py-1 bg-emerald-500/15 text-emerald-600 rounded-sm font-semibold text-xs'>
 									<Icons.rows className='size-4' />
-									<span>{table.rows}</span>
+									<span>{table.recordCount}</span>
 								</div>
 								<FavoriteButton tableId={table.id} />
 							</div>
