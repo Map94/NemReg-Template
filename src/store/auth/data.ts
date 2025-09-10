@@ -1,10 +1,10 @@
-import { db, Tx } from '@/lib/database/connection'
+import { db, Tx } from '@/lib/db/connection'
 import {
 	accountsTable,
 	sessionsTable,
 	tenantsTable,
 	usersTable,
-} from '@/lib/database/schema/auth'
+} from '@/lib/db/schema/auth'
 import { and, eq, sql } from 'drizzle-orm'
 import {
 	Account,

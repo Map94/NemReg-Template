@@ -21,6 +21,7 @@ export const signUpAction = publicAction
 	})
 	.action(async ({ parsedInput }) => {
 		const newTenant = await tryCatch(authService.registerTenant(parsedInput))
+		console.log(newTenant)
 		if (!newTenant.success) {
 			if (newTenant.error instanceof StoreError) {
 				throw newTenant.error

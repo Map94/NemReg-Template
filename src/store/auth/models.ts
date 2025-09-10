@@ -5,7 +5,7 @@ import {
 	tenantsTable,
 	usersTable,
 	verificationsTable,
-} from '@/lib/database/schema/auth'
+} from '@/lib/db/schema/auth'
 import z from 'zod'
 
 export enum AccountProvider {

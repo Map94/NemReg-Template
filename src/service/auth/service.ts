@@ -1,4 +1,4 @@
-import { db } from '@/lib/database/connection'
+import { db } from '@/lib/db/connection'
 import { generateRandomString, slugify } from '@/lib/utils'
 import { SignInInput, SignUpInput } from '@/schemas/auth'
 import { authStore } from '@/store/auth/data'

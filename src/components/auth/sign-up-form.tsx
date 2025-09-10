@@ -34,6 +34,7 @@ export function SignUpForm() {
 	const router = useRouter()
 	const t = useTranslations('validation')
 	const authT = useTranslations('auth')
+	const signUpT = useTranslations('Auth')
 	const signUpSchema = signUpValidation(t)
 	const { execute, isExecuting } = useAction(signUpAction, {
 		onError(args) {
@@ -63,10 +64,8 @@ export function SignUpForm() {
 	return (
 		<Card className='w-full max-w-sm'>
 			<CardHeader>
-				<CardTitle>Create a new organization</CardTitle>
-				<CardDescription>
-					Enter your information below to get started
-				</CardDescription>
+				<CardTitle>{signUpT('signUpTitle')}</CardTitle>
+				<CardDescription>{signUpT('signUpDescription')}</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<Form {...form}>
@@ -79,7 +78,7 @@ export function SignUpForm() {
 							name='organizationName'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Organization</FormLabel>
+									<FormLabel>{signUpT('organization')}</FormLabel>
 									<FormControl>
 										<Input type='text' {...field} />
 									</FormControl>
@@ -92,7 +91,7 @@ export function SignUpForm() {
 							name='name'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Name</FormLabel>
+									<FormLabel>{signUpT('name')}</FormLabel>
 									<FormControl>
 										<Input type='text' autoComplete='name' {...field} />
 									</FormControl>
@@ -105,7 +104,7 @@ export function SignUpForm() {
 							name='email'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Email</FormLabel>
+									<FormLabel>{signUpT('email')}</FormLabel>
 									<FormControl>
 										<Input type='email' autoComplete='work email' {...field} />
 									</FormControl>
@@ -118,7 +117,7 @@ export function SignUpForm() {
 							name='password'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Password</FormLabel>
+									<FormLabel>{signUpT('password')}</FormLabel>
 									<FormControl>
 										<Input
 											type='password'
@@ -140,12 +139,12 @@ export function SignUpForm() {
 					className='w-full'
 					disabled={isExecuting}>
 					{isExecuting && <Icons.loader className='animate-spin mr-2' />}
-					Create
+					{isExecuting ? signUpT('signingUp') : signUpT('signUpButton')}
 				</Button>
 				<div className='mt-4 text-center text-sm'>
-					Already have an account?{' '}
+					{signUpT('alreadyHaveAccount')}{' '}
 					<Link href='/sign-in' className='underline underline-offset-4'>
-						Sign in
+						{signUpT('signIn')}
 					</Link>
 				</div>
 			</CardFooter>

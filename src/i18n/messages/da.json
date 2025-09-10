@@ -1,0 +1,94 @@
+{
+	"HomePage": {
+		"title": "Dashboard",
+		"description": "Din komplette dataforvaltningsløsning"
+	},
+	"Auth": {
+		"signIn": "Log ind",
+		"signUp": "Opret konto",
+		"email": "Email",
+		"emailPlaceholder": "Indtast din email",
+		"password": "Adgangskode",
+		"passwordPlaceholder": "Indtast din adgangskode",
+		"signInButton": "Log ind",
+		"signUpButton": "Opret konto",
+		"alreadyHaveAccount": "Har du allerede en konto?",
+		"dontHaveAccount": "Har du ikke en konto?",
+		"forgotPassword": "Glemt adgangskode?",
+		"rememberMe": "Husk mig",
+		"signInTitle": "Velkommen tilbage",
+		"signInDescription": "Log ind på din konto for at fortsætte",
+		"signUpTitle": "Opret en ny organisation",
+		"signUpDescription": "Indtast dine oplysninger nedenfor for at komme i gang",
+		"organization": "Organisation",
+		"name": "Navn",
+		"signInWithEmail": "Log ind med email",
+		"signUpWithEmail": "Opret konto med email",
+		"loading": "Indlæser...",
+		"signingIn": "Logger ind...",
+		"signingUp": "Opretter konto..."
+	},
+	"auth": {
+		"signOut": "Log ud",
+		"signingOut": "Logger ud...",
+		"profile": "Profil",
+		"settings": "Indstillinger",
+		"success": {
+			"signIn": "Velkommen tilbage!",
+			"signUp": "Konto oprettet med succes! Velkommen til platformen.",
+			"signOut": "Du er blevet logget ud. Vi ses snart!",
+			"signingOut": "Logger ud..."
+		},
+		"errors": {
+			"USER_NOT_FOUND": "Konto ikke fundet. Tjek din email eller opret en ny konto.",
+			"ACCOUNT_NOT_FOUND": "Kontokonfigurationsfejl. Kontakt support.",
+			"PASSWORD_HASH_NULL": "Kontosikkerhedsfejl. Kontakt support.",
+			"INVALID_CREDENTIALS": "Ugyldig email eller adgangskode. Tjek dine oplysninger og prøv igen.",
+			"UNKNOWN_ERROR": "Noget gik galt. Prøv venligst igen senere."
+		}
+	},
+	"validation": {
+		"required": "Dette felt er påkrævet",
+		"min": "Skal være mindst {number} tegn langt",
+		"max": "Må ikke overstige {number} tegn",
+		"email": "Skal være en gyldig email adresse",
+		"password": {
+			"min": "Adgangskode skal være mindst 8 tegn langt",
+			"required": "Adgangskode er påkrævet"
+		}
+	},
+	"sidebar": {
+		"documentation": "Dokumentation",
+		"home": "Hjem",
+		"dashboard": "Dashboard",
+		"tables": "Tabeller",
+		"settings": "Indstillinger",
+		"help": "Hjælp",
+		"support": "Support"
+	},
+	"tables": {
+		"title": "Dine tabeller",
+		"description": "Administrer dine datatabeller og poster",
+		"noTablesTitle": "Ingen tabeller endnu",
+		"noTablesDescription": "Opret din første tabel for at begynde at administrere dine data",
+		"createTable": "Opret tabel",
+		"view": "Se",
+		"edit": "Rediger",
+		"columns": "kolonner",
+		"records": "poster"
+	},
+	"Navigation": {
+		"home": "Hjem",
+		"dashboard": "Dashboard",
+		"tables": "Tabeller",
+		"settings": "Indstillinger",
+		"signOut": "Log ud"
+	},
+	"Errors": {
+		"invalidEmail": "Indtast venligst en gyldig email adresse",
+		"passwordRequired": "Adgangskode er påkrævet",
+		"signInFailed": "Log ind fejlede. Tjek venligst dine oplysninger.",
+		"signUpFailed": "Kontooprettelse fejlede. Prøv venligst igen.",
+		"somethingWentWrong": "Noget gik galt. Prøv venligst igen."
+	}
+}

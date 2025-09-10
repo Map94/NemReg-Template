@@ -1,0 +1,93 @@
+{
+	"HomePage": {
+		"title": "Dashboard",
+		"description": "Your complete data management solution"
+	},
+	"Auth": {
+		"signIn": "Sign In",
+		"signUp": "Sign Up",
+		"email": "Email",
+		"emailPlaceholder": "Enter your email",
+		"password": "Password",
+		"passwordPlaceholder": "Enter your password",
+		"signInButton": "Sign In",
+		"signUpButton": "Create Account",
+		"alreadyHaveAccount": "Already have an account?",
+		"dontHaveAccount": "Don't have an account?",
+		"forgotPassword": "Forgot password?",
+		"rememberMe": "Remember me",
+		"signInTitle": "Welcome back",
+		"signInDescription": "Sign in to your account to continue",
+		"signUpTitle": "Create a new organization",
+		"signUpDescription": "Enter your information below to get started",
+		"organization": "Organization",
+		"name": "Name",
+		"signInWithEmail": "Sign in with email",
+		"signUpWithEmail": "Create account with email",
+		"loading": "Loading...",
+		"signingIn": "Signing in...",
+		"signingUp": "Creating account..."
+	},
+	"auth": {
+		"signOut": "Sign Out",
+		"profile": "Profile",
+		"settings": "Settings",
+		"success": {
+			"signIn": "Welcome back!",
+			"signUp": "Account created successfully! Welcome to the platform.",
+			"signOut": "You have been signed out successfully. See you soon!",
+			"signingOut": "Signing out..."
+		},
+		"errors": {
+			"USER_NOT_FOUND": "Account not found. Check your email or create a new account.",
+			"ACCOUNT_NOT_FOUND": "Account configuration error. Contact support.",
+			"PASSWORD_HASH_NULL": "Account security error. Contact support.",
+			"INVALID_CREDENTIALS": "Invalid email or password. Check your credentials and try again.",
+			"UNKNOWN_ERROR": "Something went wrong. Please try again later."
+		}
+	},
+	"validation": {
+		"required": "This field is required",
+		"min": "Must be at least {number} characters long",
+		"max": "Must not exceed {number} characters",
+		"email": "Must be a valid email address",
+		"password": {
+			"min": "Password must be at least 8 characters long",
+			"required": "Password is required"
+		}
+	},
+	"sidebar": {
+		"documentation": "Documentation",
+		"home": "Home",
+		"dashboard": "Dashboard",
+		"tables": "Tables",
+		"settings": "Settings",
+		"help": "Help",
+		"support": "Support"
+	},
+	"tables": {
+		"title": "Your Tables",
+		"description": "Manage your data tables and records",
+		"noTablesTitle": "No tables yet",
+		"noTablesDescription": "Create your first table to start managing your data",
+		"createTable": "Create Table",
+		"view": "View",
+		"edit": "Edit",
+		"columns": "columns",
+		"records": "records"
+	},
+	"Navigation": {
+		"home": "Home",
+		"dashboard": "Dashboard",
+		"tables": "Tables",
+		"settings": "Settings",
+		"signOut": "Sign Out"
+	},
+	"Errors": {
+		"invalidEmail": "Please enter a valid email address",
+		"passwordRequired": "Password is required",
+		"signInFailed": "Sign in failed. Please check your credentials.",
+		"signUpFailed": "Sign up failed. Please try again.",
+		"somethingWentWrong": "Something went wrong. Please try again."
+	}
+}
