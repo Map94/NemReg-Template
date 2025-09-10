@@ -1,6 +1,6 @@
 'use client'
 
-import { Area, AreaChart, CartesianGrid } from 'recharts'
+import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts'
 
 import {
 	ChartConfig,
@@ -47,6 +47,7 @@ export function ChartAreaAxes() {
 					right: 2,
 				}}>
 				<CartesianGrid vertical={false} />
+				<XAxis dataKey='month' hide />
 				<ChartTooltip
 					cursor={false}
 					content={<ChartTooltipContent indicator='dot' />}

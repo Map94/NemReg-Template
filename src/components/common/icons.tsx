@@ -6,6 +6,8 @@ import {
 	Hash,
 	Home,
 	Languages,
+	LayoutGrid,
+	List,
 	ListOrdered,
 	ListPlus,
 	Loader2,
@@ -49,4 +51,6 @@ export const Icons = {
 	list: (props: IconProps) => <ListOrdered {...props} />,
 	rows: (props: IconProps) => <Rows4 {...props} />,
 	chartspline: (props: IconProps) => <ChartSpline {...props} />,
+	grid: (props: IconProps) => <LayoutGrid {...props} />,
+	listlayout: (props: IconProps) => <List {...props} />,
 }
