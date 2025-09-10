@@ -11,7 +11,7 @@
 - [ ] "emailVerified": true, needs email confirmation
 - [ ] show correct timezone
 - [x] change logo to correct from Nem reg current site
-- [ ]
+- [x] Remove test data and mock endpoints
 - [ ]
 
 ## Features
@@ -21,6 +21,8 @@
 - [x] Add language button to signin page
 - [ ] Users and their roles
 - [ ] Make tables with their edit functions
-- [ ]
-- [ ]
+- [x] Implement backend logic for tables
+- [ ] Implement dynamic table data storage
+- [ ] Add table management UI
+- [ ] Add record management UI
 - [ ]

@@ -1,0 +1,94 @@
+{
+	"HomePage": {
+		"title": "Dashboard",
+		"description": "Din komplette dataforvaltningsløsning"
+	},
+	"Auth": {
+		"signIn": "Logg inn",
+		"signUp": "Opprett konto",
+		"email": "E-post",
+		"emailPlaceholder": "Skriv inn din e-post",
+		"password": "Passord",
+		"passwordPlaceholder": "Skriv inn ditt passord",
+		"signInButton": "Logg inn",
+		"signUpButton": "Opprett konto",
+		"alreadyHaveAccount": "Har du allerede en konto?",
+		"dontHaveAccount": "Har du ikke en konto?",
+		"forgotPassword": "Glemt passord?",
+		"rememberMe": "Husk meg",
+		"signInTitle": "Velkommen tilbake",
+		"signInDescription": "Logg inn på kontoen din for å fortsette",
+		"signUpTitle": "Opprett en ny organisasjon",
+		"signUpDescription": "Skriv inn informasjonen din nedenfor for å komme i gang",
+		"organization": "Organisasjon",
+		"name": "Navn",
+		"signInWithEmail": "Logg inn med e-post",
+		"signUpWithEmail": "Opprett konto med e-post",
+		"loading": "Laster...",
+		"signingIn": "Logger inn...",
+		"signingUp": "Oppretter konto..."
+	},
+	"auth": {
+		"signOut": "Logg ut",
+		"signingOut": "Logger ut...",
+		"profile": "Profil",
+		"settings": "Innstillinger",
+		"success": {
+			"signIn": "Velkommen tilbake!",
+			"signUp": "Konto opprettet! Velkommen til plattformen.",
+			"signOut": "Du har blitt logget ut. Vi sees snart!",
+			"signingOut": "Logger ut..."
+		},
+		"errors": {
+			"USER_NOT_FOUND": "Konto ikke funnet. Sjekk e-posten din eller opprett en ny konto.",
+			"ACCOUNT_NOT_FOUND": "Kontokonfigurasjonsfeil. Kontakt support.",
+			"PASSWORD_HASH_NULL": "Kontosikkerhetsfeil. Kontakt support.",
+			"INVALID_CREDENTIALS": "Ugyldig e-post eller passord. Sjekk opplysningene dine og prøv igjen.",
+			"UNKNOWN_ERROR": "Noe gikk galt. Vennligst prøv igjen senere."
+		}
+	},
+	"validation": {
+		"required": "Dette feltet er påkrevd",
+		"min": "Må være minst {number} tegn langt",
+		"max": "Må ikke overskride {number} tegn",
+		"email": "Må være en gyldig e-postadresse",
+		"password": {
+			"min": "Passord må være minst 8 tegn langt",
+			"required": "Passord er påkrevd"
+		}
+	},
+	"sidebar": {
+		"documentation": "Dokumentasjon",
+		"home": "Hjem",
+		"dashboard": "Dashboard",
+		"tables": "Tabeller",
+		"settings": "Innstillinger",
+		"help": "Hjelp",
+		"support": "Støtte"
+	},
+	"tables": {
+		"title": "Dine tabeller",
+		"description": "Administrer datatabellene og postene dine",
+		"noTablesTitle": "Ingen tabeller ennå",
+		"noTablesDescription": "Opprett din første tabell for å begynne å administrere dataene dine",
+		"createTable": "Opprett tabell",
+		"view": "Se",
+		"edit": "Rediger",
+		"columns": "kolonner",
+		"records": "poster"
+	},
+	"Navigation": {
+		"home": "Hjem",
+		"dashboard": "Dashboard",
+		"tables": "Tabeller",
+		"settings": "Innstillinger",
+		"signOut": "Logg ut"
+	},
+	"Errors": {
+		"invalidEmail": "Vennligst skriv inn en gyldig e-postadresse",
+		"passwordRequired": "Passord er påkrevd",
+		"signInFailed": "Innlogging feilet. Vennligst sjekk dine opplysninger.",
+		"signUpFailed": "Kontoopprettelse feilet. Vennligst prøv igjen.",
+		"somethingWentWrong": "Noe gikk galt. Vennligst prøv igjen."
+	}
+}

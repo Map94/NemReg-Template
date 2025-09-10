@@ -1,0 +1,94 @@
+{
+	"HomePage": {
+		"title": "Dashboard",
+		"description": "Din kompletta datahanteringslösning"
+	},
+	"Auth": {
+		"signIn": "Logga in",
+		"signUp": "Skapa konto",
+		"email": "E-post",
+		"emailPlaceholder": "Ange din e-post",
+		"password": "Lösenord",
+		"passwordPlaceholder": "Ange ditt lösenord",
+		"signInButton": "Logga in",
+		"signUpButton": "Skapa konto",
+		"alreadyHaveAccount": "Har du redan ett konto?",
+		"dontHaveAccount": "Har du inget konto?",
+		"forgotPassword": "Glömt lösenord?",
+		"rememberMe": "Kom ihåg mig",
+		"signInTitle": "Välkommen tillbaka",
+		"signInDescription": "Logga in på ditt konto för att fortsätta",
+		"signUpTitle": "Skapa en ny organisation",
+		"signUpDescription": "Ange din information nedan för att komma igång",
+		"organization": "Organisation",
+		"name": "Namn",
+		"signInWithEmail": "Logga in med e-post",
+		"signUpWithEmail": "Skapa konto med e-post",
+		"loading": "Laddar...",
+		"signingIn": "Loggar in...",
+		"signingUp": "Skapar konto..."
+	},
+	"auth": {
+		"signOut": "Logga ut",
+		"signingOut": "Loggar ut...",
+		"profile": "Profil",
+		"settings": "Inställningar",
+		"success": {
+			"signIn": "Välkommen tillbaka!",
+			"signUp": "Konto skapat framgångsrikt! Välkommen till plattformen.",
+			"signOut": "Du har loggats ut framgångsrikt. Vi ses snart!",
+			"signingOut": "Loggar ut..."
+		},
+		"errors": {
+			"USER_NOT_FOUND": "Konto hittades inte. Kontrollera din e-post eller skapa ett nytt konto.",
+			"ACCOUNT_NOT_FOUND": "Kontokonfigurationsfel. Kontakta support.",
+			"PASSWORD_HASH_NULL": "Kontosäkerhetsfel. Kontakta support.",
+			"INVALID_CREDENTIALS": "Ogiltig e-post eller lösenord. Kontrollera dina uppgifter och försök igen.",
+			"UNKNOWN_ERROR": "Något gick fel. Försök igen senare."
+		}
+	},
+	"validation": {
+		"required": "Fältet är obligatoriskt",
+		"min": "Måste vara minst {number} tecken långt",
+		"max": "Får inte överstiga {number} tecken",
+		"email": "Måste vara en giltig e-postadress",
+		"password": {
+			"min": "Lösenord måste vara minst 8 tecken långt",
+			"required": "Lösenord krävs"
+		}
+	},
+	"sidebar": {
+		"documentation": "Dokumentation",
+		"home": "Hem",
+		"dashboard": "Dashboard",
+		"tables": "Tabeller",
+		"settings": "Inställningar",
+		"help": "Hjälp",
+		"support": "Support"
+	},
+	"tables": {
+		"title": "Dina tabeller",
+		"description": "Hantera dina datatabeller och poster",
+		"noTablesTitle": "Inga tabeller än",
+		"noTablesDescription": "Skapa din första tabell för att börja hantera din data",
+		"createTable": "Skapa tabell",
+		"view": "Visa",
+		"edit": "Redigera",
+		"columns": "kolumner",
+		"records": "poster"
+	},
+	"Navigation": {
+		"home": "Hem",
+		"dashboard": "Dashboard",
+		"tables": "Tabeller",
+		"settings": "Inställningar",
+		"signOut": "Logga ut"
+	},
+	"Errors": {
+		"invalidEmail": "Vänligen ange en giltig e-postadress",
+		"passwordRequired": "Lösenord krävs",
+		"signInFailed": "Inloggning misslyckades. Vänligen kontrollera dina uppgifter.",
+		"signUpFailed": "Kontoskapande misslyckades. Vänligen försök igen.",
+		"somethingWentWrong": "Något gick fel. Vänligen försök igen."
+	}
+}

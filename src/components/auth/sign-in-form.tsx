@@ -1,130 +1,126 @@
 'use client'
 
 import { signInAction } from '@/actions/auth'
-import { Icons } from '@/components/common/icons'
 import { Button } from '@/components/ui/button'
 import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Link, usePathname, useRouter } from '@/i18n/navigation'
-import { handleAuthError } from '@/lib/error-utils'
-import { signInValidation } from '@/schemas/auth'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useLocale, useTranslations } from 'next-intl'
+import { Label } from '@/components/ui/label'
+import { useRouter } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 import { useAction } from 'next-safe-action/hooks'
-import { useForm } from 'react-hook-form'
+import Link from 'next/link'
+import { useState } from 'react'
 import { toast } from 'sonner'
-import z from 'zod'
 
 export function SignInForm() {
 	const router = useRouter()
-	const t = useTranslations('validation')
+	const t = useTranslations('Auth')
 	const authT = useTranslations('auth')
-	const signInSchema = signInValidation(t)
-	const locale = useLocale()
-	const pathname = usePathname()
+	const validationT = useTranslations('validation')
+
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
 
 	const { execute, isExecuting } = useAction(signInAction, {
-		onError(args) {
-			if (args.error.serverError) {
-				const errorMessage = handleAuthError(args.error.serverError, authT)
+		onSuccess: () => {
+			toast.success(authT('success.signIn'))
+			// Redirect to dashboard after successful login
+			router.push('/')
+		},
+		onError: ({ error }) => {
+			if (error.serverError) {
+				const errorKey = error.serverError
+				// Try to get translated error message, fallback to generic message
+				const errorMessage =
+					authT(`errors.${errorKey}`) || authT('errors.UNKNOWN_ERROR')
 				toast.error(errorMessage)
-			} else {
-				toast.error(authT('errors.UNKNOWN_ERROR'))
 			}
 		},
-		onSuccess() {
-			toast.success(authT('success.signIn'))
-			router.replace('/')
-			router.refresh()
-		},
 	})
 
-	const form = useForm<z.infer<typeof signInSchema>>({
-		resolver: zodResolver(signInSchema),
-		defaultValues: {
-			email: '',
-			password: '',
-		},
-	})
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault()
 
-	function onSubmit(values: z.infer<typeof signInSchema>) {
-		execute(values)
+		// Basic client-side validation
+		if (!email) {
+			toast.error(validationT('required'))
+			return
+		}
+		if (!password) {
+			toast.error(validationT('password.required'))
+			return
+		}
+
+		execute({ email, password })
 	}
 
 	return (
-		<Card className='w-full max-w-sm'>
-			<CardHeader>
-				<CardTitle>Login to your account</CardTitle>
-				<CardDescription>
-					Enter your email below to login to your account
+		<Card className='mx-auto max-w-md w-full'>
+			<CardHeader className='space-y-2'>
+				<CardTitle className='text-2xl font-bold'>{t('signInTitle')}</CardTitle>
+				<CardDescription className='text-base'>
+					{t('signInDescription')}
 				</CardDescription>
 			</CardHeader>
-			<CardContent>
-				<Form {...form}>
-					<form
-						id='sign-in-form'
-						onSubmit={form.handleSubmit(onSubmit)}
-						className='space-y-4'>
-						<FormField
-							control={form.control}
-							name='email'
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Email</FormLabel>
-									<FormControl>
-										<Input placeholder='Your email...' {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
+			<CardContent className='space-y-4'>
+				<form onSubmit={handleSubmit} className='space-y-4'>
+					<div className='space-y-2'>
+						<Label htmlFor='email'>{t('email')}</Label>
+						<Input
+							id='email'
+							type='email'
+							placeholder={t('emailPlaceholder')}
+							value={email}
+							onChange={e => setEmail(e.target.value)}
+							disabled={isExecuting}
+							className='h-11'
+							required
 						/>
-						<FormField
-							control={form.control}
-							name='password'
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Password</FormLabel>
-									<FormControl>
-										<Input type='password' {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
+					</div>
+					<div className='space-y-2'>
+						<div className='flex items-center justify-between'>
+							<Label htmlFor='password'>{t('password')}</Label>
+							<Link
+								href='#'
+								className='text-sm text-primary underline-offset-4 hover:underline'>
+								{t('forgotPassword')}
+							</Link>
+						</div>
+						<Input
+							id='password'
+							type='password'
+							placeholder={t('passwordPlaceholder')}
+							value={password}
+							onChange={e => setPassword(e.target.value)}
+							disabled={isExecuting}
+							className='h-11'
+							required
 						/>
-					</form>
-				</Form>
-			</CardContent>
-			<CardFooter className='flex-col gap-2'>
-				<Button
-					form='sign-in-form'
-					type='submit'
-					className='w-full'
-					disabled={isExecuting}>
-					{isExecuting && <Icons.loader className='animate-spin mr-2' />}
-					Login
-				</Button>
-				<div className='mt-4 text-center text-sm'>
-					Don&apos;t have an account?{' '}
-					<Link href='/sign-up' className='underline underline-offset-4'>
-						Sign up
+					</div>
+					<div className='space-y-3'>
+						<Button
+							type='submit'
+							className='w-full h-11'
+							disabled={isExecuting}>
+							{isExecuting ? t('signingIn') : t('signInButton')}
+						</Button>
+					</div>
+				</form>
+				<div className='text-center text-sm text-muted-foreground'>
+					{t('dontHaveAccount')}{' '}
+					<Link
+						href='/sign-up'
+						className='font-medium text-primary underline-offset-4 hover:underline'>
+						{t('signUp')}
 					</Link>
 				</div>
-			</CardFooter>
+			</CardContent>
 		</Card>
 	)
 }

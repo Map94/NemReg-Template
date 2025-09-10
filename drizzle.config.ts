@@ -2,8 +2,8 @@ import 'dotenv/config'
 import { defineConfig } from 'drizzle-kit'
 
 export default defineConfig({
-	out: './src/lib/database/migrations',
-	schema: './src/lib/database/schema',
+	out: './src/lib/db/migrations',
+	schema: './src/lib/db/schema',
 	dialect: 'turso',
 	dbCredentials: {
 		url: process.env.TURSO_DATABASE_URL as string,
