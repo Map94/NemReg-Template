@@ -105,7 +105,9 @@ export function TableViewContent({
 							<CardHeader>
 								<CardTitle className='grid grid-cols-[16px_1fr] gap-2'>
 									<Icons.table className='size-4' />
-									<p className='line-clamp-1'>{table.name}</p>
+									<p className='line-clamp-1 cursor-pointer' title={table.name}>
+										{table.name}
+									</p>
 								</CardTitle>
 
 								<CardDescription className='line-clamp-1'>

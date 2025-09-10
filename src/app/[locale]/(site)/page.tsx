@@ -24,7 +24,7 @@ async function Home({ user, tenant }: WithAuthProps) {
 
 	return (
 		<ViewProvider>
-			<Page.Header>
+			<Page.Header className='bg-background border-b z-10'>
 				<Page.Title>{homeT('title')}</Page.Title>
 				<Page.Actions>
 					<Button size='icon' variant='ghost'>
