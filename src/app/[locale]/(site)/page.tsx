@@ -15,11 +15,7 @@ async function Home({ user, tenant }: WithAuthProps) {
 	const homeT = await getTranslations('HomePage')
 
 	// Fetch user's tables
-	const { data: tables } = await tableService.getTables(user.id, tenant.id, {
-		favoriteOnly: false,
-		limit: 100,
-		page: 1,
-	})
+	const tables = await tableService.listTables(tenant.id)
 	console.log('tables', tables, tenant)
 
 	return (

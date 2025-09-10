@@ -14,24 +14,9 @@ import {
 	CardTitle,
 } from '@/components/ui/card'
 import { Link } from '@/i18n/navigation'
-import { SimplifiedDataColumn } from '@/lib/type/table'
+import { Table } from '@/store/tables/models'
 import { useTranslations } from 'next-intl'
 import { createContext, useContext, useState } from 'react'
-
-interface Table {
-	id: string
-	name: string
-	tableName: string
-	description: string | null
-	columns: SimplifiedDataColumn[]
-	inserted: string | null
-	updatedAt: string | null
-	userId: string
-	clientId: string
-	isFavorite: boolean | null
-	isArchived: boolean | null
-	recordCount: number | null
-}
 
 interface TableViewContainerProps {
 	tables: Table[]
@@ -105,13 +90,15 @@ export function TableViewContent({
 							<CardHeader>
 								<CardTitle className='grid grid-cols-[16px_1fr] gap-2'>
 									<Icons.table className='size-4' />
-									<p className='line-clamp-1 cursor-pointer' title={table.name}>
-										{table.name}
+									<p
+										className='line-clamp-1 cursor-pointer'
+										title={table.displayName}>
+										{table.displayName}
 									</p>
 								</CardTitle>
 
 								<CardDescription className='line-clamp-1'>
-									{table.description}
+									{table.displayDescription}
 								</CardDescription>
 								<CardAction>
 									<FavoriteButton tableId={table.id} />
@@ -135,7 +122,7 @@ export function TableViewContent({
 								</p>
 								<div className='flex items-center gap-1 px-2 py-1 bg-emerald-500/15 text-emerald-600 rounded-sm font-semibold'>
 									<Icons.rows className='size-4.5 ' />
-									<p>{table.recordCount}</p>
+									<p>{0}</p>
 								</div>
 							</CardFooter>
 						</Card>
@@ -145,11 +132,11 @@ export function TableViewContent({
 							<div className='flex-1 flex items-center gap-1 min-w-0'>
 								<span
 									className='font-semibold min-w-[400px] max-w-[400px] flex-shrink-0 line-clamp-1 cursor-pointer'
-									title={table.name}>
-									{table.name}
+									title={table.displayName}>
+									{table.displayName}
 								</span>
 								<span className='text-sm text-gray-500 line-clamp-1 flex-1 min-w-0'>
-									{table.description}
+									{table.displayDescription}
 								</span>
 							</div>
 							<p className='px-2 py-1 bg-cyan-500/15 text-cyan-600 rounded-sm font-semibold text-xs'>
@@ -167,7 +154,7 @@ export function TableViewContent({
 							<div className='flex items-center gap-4 flex-shrink-0'>
 								<div className='flex items-center gap-1 px-2 py-1 bg-emerald-500/15 text-emerald-600 rounded-sm font-semibold text-xs'>
 									<Icons.rows className='size-4' />
-									<span>{table.recordCount}</span>
+									<span>{0}</span>
 								</div>
 								<FavoriteButton tableId={table.id} />
 							</div>

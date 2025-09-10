@@ -1,13 +1,19 @@
 import { masterTable } from '@/lib/db/schema/table'
+import z from 'zod'
 
 export type Table = typeof masterTable.$inferSelect
 export type NewTable = typeof masterTable.$inferInsert
 
-export type Column = {
-	id: string
-	databaseName: string
-	displayName: string
-	type: ColumnType
+export enum ColumnType {
+	Text = 'TEXT',
+	Integer = 'INTEGER',
 }
 
-export type ColumnType = 'TEXT' | 'INTEGER'
+export const columnValidation = z.object({
+	id: z.string(),
+	databaseName: z.string(),
+	displayName: z.string(),
+	type: z.enum(ColumnType),
+})
+
+export type Column = z.infer<typeof columnValidation>
