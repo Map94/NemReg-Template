@@ -6,6 +6,7 @@ import { authService } from '@/service/auth/service'
 import type { Metadata } from 'next'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { notFound } from 'next/navigation'
 import '../globals.css'
 
 const geistSans = Geist({
@@ -36,7 +37,7 @@ export default async function RootLayout({
 }>) {
 	const { locale } = await params
 	if (!hasLocale(routing.locales, locale)) {
-		console.log('locale not found', locale)
+		return notFound()
 	}
 
 	const data = await authService.verify()

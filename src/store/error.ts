@@ -11,11 +11,11 @@ export enum AuthErrorCode {
 }
 
 export class StoreError extends Error {
-	constructor(
-		public code: AuthErrorCode,
-		message?: string,
-	) {
+	public code: AuthErrorCode
+
+	constructor(code: AuthErrorCode, message?: string) {
 		super(message || code)
+		this.code = code
 		this.name = 'StoreError'
 	}
 }

@@ -1,7 +1,7 @@
 ## BUGS
 
 - [x] email is case-sensative in signin / signup flow
-- [ ] can click login button even if flow is executing
+- [x] can click login button even if flow is executing
 - [x] correct toast msgs
 - [x] change name Nem reg
 - [x] fix G in Nem reg is cut off on logo
@@ -17,10 +17,10 @@
 ## Features
 
 - [ ] Send mail on correct signup
-- [ ] Make user/table page
-- [ ] Add language button to signin page
-- [ ]
-- [ ]
+- [ ] Make user/label page
+- [x] Add language button to signin page
+- [ ] Users and their roles
+- [ ] Make tables with their edit functions
 - [ ]
 - [ ]
 - [ ]

@@ -15,16 +15,6 @@ const baseActionClient = createSafeActionClient({
 		})
 	},
 	handleServerError(err, utils) {
-		const { ctx, metadata, clientInput } = utils
-
-		console.error({
-			message: 'Action error',
-			err,
-			ctx,
-			metadata,
-			clientInput,
-		})
-
 		if (err instanceof StoreError) {
 			return JSON.stringify({ code: err.code, message: err.message })
 		}

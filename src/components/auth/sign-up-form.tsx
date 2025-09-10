@@ -21,8 +21,8 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Link, useRouter } from '@/i18n/navigation'
+import { handleAuthError } from '@/lib/error-utils'
 import { signUpValidation } from '@/schemas/auth'
-import { AuthErrorCode } from '@/store/error'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useAction } from 'next-safe-action/hooks'
@@ -37,33 +37,15 @@ export function SignUpForm() {
 	const signUpSchema = signUpValidation(t)
 	const { execute, isExecuting } = useAction(signUpAction, {
 		onError(args) {
-			if (args.error.validationErrors) {
-				toast.error(authT('errors.VALIDATION_ERROR'))
-				return
-			}
-
 			if (args.error.serverError) {
-				try {
-					const errorData = JSON.parse(args.error.serverError)
-					if (
-						errorData.code &&
-						Object.values(AuthErrorCode).includes(errorData.code)
-					) {
-						toast.error(authT(`errors.${errorData.code}`))
-						return
-					}
-				} catch {
-					// Not a structured error, continue to fallback
-				}
-
+				const errorMessage = handleAuthError(args.error.serverError, authT)
+				toast.error(errorMessage)
+			} else {
 				toast.error(authT('errors.UNKNOWN_ERROR'))
-				return
 			}
-
-			toast.error(authT('errors.UNKNOWN_ERROR'))
 		},
 		onSuccess() {
-			toast.success(authT('success.ACCOUNT_CREATED'))
+			toast.success(authT('success.signUp'))
 			router.push('/sign-in')
 		},
 	})
@@ -89,7 +71,7 @@ export function SignUpForm() {
 			<CardContent>
 				<Form {...form}>
 					<form
-						id='sign-in-form'
+						id='sign-up-form'
 						onSubmit={form.handleSubmit(execute)}
 						className='space-y-4'>
 						<FormField
@@ -152,8 +134,12 @@ export function SignUpForm() {
 				</Form>
 			</CardContent>
 			<CardFooter className='flex-col gap-2'>
-				<Button form='sign-in-form' type='submit' className='w-full'>
-					{isExecuting && <Icons.loader className='animate-spin' />}
+				<Button
+					form='sign-up-form'
+					type='submit'
+					className='w-full'
+					disabled={isExecuting}>
+					{isExecuting && <Icons.loader className='animate-spin mr-2' />}
 					Create
 				</Button>
 				<div className='mt-4 text-center text-sm'>
