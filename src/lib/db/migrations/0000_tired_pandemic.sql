@@ -75,4 +75,17 @@ CREATE TABLE `verifications` (
 	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX `verifications_token_unique` ON `verifications` (`token`);
+CREATE UNIQUE INDEX `verifications_token_unique` ON `verifications` (`token`);--> statement-breakpoint
+CREATE TABLE `_master_table` (
+	`id` text PRIMARY KEY NOT NULL,
+	`database_name` text NOT NULL,
+	`display_name` text NOT NULL,
+	`display_description` text,
+	`columns` text NOT NULL,
+	`created_at` integer NOT NULL,
+	`updated_at` integer NOT NULL,
+	`user_id` text,
+	`tenant_id` text NOT NULL,
+	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE set null,
+	FOREIGN KEY (`tenant_id`) REFERENCES `tenants`(`id`) ON UPDATE no action ON DELETE cascade
+);

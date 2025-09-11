@@ -1,5 +1,4 @@
-import { db } from '@/lib/db/connection'
-import { ApplicationError } from '@/lib/safe-action'
+import { client } from '@/lib/db/connection'
 import { generateRandomString } from '@/lib/utils'
 import { CreateTableInput } from '@/schemas/tables'
 import { Tenant, User } from '@/store/auth/models'
@@ -10,8 +9,8 @@ export const tableService = {
 	createTable: async function (
 		tenantId: Tenant['id'],
 		userId: User['id'],
-		input: CreateTableInput, // make schema for form data
-	): Promise<Table> {
+		input: CreateTableInput,
+	): Promise<boolean> {
 		const newTable: NewTable = {
 			id: generateRandomString(32, 'table_'),
 			columns: input.columns.map(c => ({
@@ -26,23 +25,11 @@ export const tableService = {
 			databaseName: generateRandomString(8),
 		}
 
-		const { table } = await db.transaction(async tx => {
-			const newMasterTable = await tableStore.createMetaTable(newTable, tx)
-			const didCreateTable = await tableStore.createTable(newMasterTable)
-			if (!didCreateTable) {
-				try {
-					tx.rollback()
-				} catch (error) {
-					throw new ApplicationError('ppooopoooo', 'Service: Database Error', {
-						table: newMasterTable,
-					})
-				}
-			}
+		const foo = await client.transaction('write')
 
-			return { table: newMasterTable }
-		})
+		const didCreateTable = await tableStore.createTable(newTable)
 
-		return table
+		return didCreateTable
 	},
 	listTables: async function (tenantId: Tenant['id']): Promise<Table[]> {
 		return await tableStore.listTable(tenantId)

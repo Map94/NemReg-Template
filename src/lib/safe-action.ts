@@ -23,6 +23,7 @@ const baseActionClient = createSafeActionClient({
 			return err.message
 		}
 
+		console.log('server error', err)
 		return DEFAULT_SERVER_ERROR_MESSAGE
 	},
 })

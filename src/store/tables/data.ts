@@ -1,17 +1,11 @@
 import { client, db, Tx } from '@/lib/db/connection'
 import { masterTable } from '@/lib/db/schema/table'
+import { generateRandomString } from '@/lib/utils'
 import { desc, eq } from 'drizzle-orm'
 import { Tenant } from '../auth/models'
-import { Column, NewTable, Table } from './models'
+import { Column, NewTable } from './models'
 
 export const tableStore = {
-	createMetaTable: async function (
-		input: NewTable,
-		tx: Tx = db,
-	): Promise<Table> {
-		const [table] = await tx.insert(masterTable).values(input).returning()
-		return table
-	},
 	listTable: async function (tenantId: Tenant['id'], tx: Tx = db) {
 		return await tx
 			.select()
@@ -20,10 +14,33 @@ export const tableStore = {
 			.orderBy(desc(masterTable.createdAt))
 	},
 
-	createTable: async function (input: Table, tx: Tx = db): Promise<boolean> {
-		const sql = generateCreateTableSQL(input.databaseName, input.columns)
-		const result = await client.execute(sql)
-		return result.rowsAffected == 1
+	createTable: async function (input: NewTable): Promise<boolean> {
+		const tenantTableSSQL = generateCreateTableSQL(
+			input.databaseName,
+			input.columns,
+		)
+		const result = await client.batch([
+			{
+				sql: 'insert into _master_table ("id", "database_name", "display_name", "display_description", "columns", "user_id", "tenant_id", "created_at", "updated_at") values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+				args: [
+					generateRandomString(32, 'table_'),
+					input.databaseName,
+					input.displayName,
+					input.displayDescription ?? '',
+					JSON.stringify(input.columns),
+					input.userId || null,
+					input.tenantId,
+					Number(new Date()),
+					Number(new Date()),
+				],
+			},
+			{
+				sql: tenantTableSSQL,
+				args: [],
+			},
+		])
+
+		return result[0].rowsAffected == 1
 	},
 }
 
@@ -31,14 +48,16 @@ function generateCreateTableSQL(
 	databaseName: string,
 	columns: Column[],
 ): string {
-	let statements = ['create table', databaseName, '(']
+	const tname = `"${databaseName}"`
+	let statements = ['create table', tname, '(']
+	let columnsStmt: string[] = []
 
-	for (let column of columns) {
-		statements.push(`${column.databaseName} ${column.type}`)
-	}
+	columns.forEach((c, i) => {
+		columnsStmt.push(`"${c.databaseName}" ${c.type}`)
+	})
 
+	statements.push(columnsStmt.join(', '))
 	statements.push(')')
-	statements.push(',')
 
 	return statements.join(' ')
 }
