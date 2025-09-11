@@ -1,4 +1,5 @@
 import { db } from '@/lib/db/connection'
+import { ApplicationError } from '@/lib/safe-action'
 import { generateRandomString } from '@/lib/utils'
 import { CreateTableInput } from '@/schemas/tables'
 import { Tenant, User } from '@/store/auth/models'
@@ -26,9 +27,17 @@ export const tableService = {
 		}
 
 		const { table } = await db.transaction(async tx => {
-			const newMasterTable = await tableStore.createTable(newTable, tx)
-
-			// implement store function to create new tenant table
+			const newMasterTable = await tableStore.createMetaTable(newTable, tx)
+			const didCreateTable = await tableStore.createTable(newMasterTable)
+			if (!didCreateTable) {
+				try {
+					tx.rollback()
+				} catch (error) {
+					throw new ApplicationError('ppooopoooo', 'Service: Database Error', {
+						table: newMasterTable,
+					})
+				}
+			}
 
 			return { table: newMasterTable }
 		})

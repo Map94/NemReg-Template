@@ -5,7 +5,7 @@ import { ExtractTablesWithRelations } from 'drizzle-orm'
 import { drizzle, LibSQLDatabase } from 'drizzle-orm/libsql'
 import { SQLiteTransaction } from 'drizzle-orm/sqlite-core'
 
-const client = createClient({
+export const client = createClient({
 	url: env.TURSO_DATABASE_URL,
 	authToken: env.TURSO_AUTH_TOKEN,
 })
