@@ -6,4 +6,17 @@ export const createTableValidation = z.object({
 	columns: z.array(columnValidation.omit({ id: true, databaseName: true })),
 })
 
+export const deleteTableValidation = z.object({
+	tableId: z.string(),
+})
+
+export const getTableByIdValidation = z.object({
+	tableId: z.string(),
+})
+
+export const updateTableRowValidation = z.object({
+	tableId: z.string(),
+	recordId: z.string(),
+	data: z.record(z.string(), z.any()),
+})
 export type CreateTableInput = z.infer<typeof createTableValidation>

@@ -6,6 +6,7 @@ import {
 	usersTable,
 	verificationsTable,
 } from '@/lib/db/schema/auth'
+import { masterTable } from '@/lib/db/schema/table'
 import z from 'zod'
 
 export enum AccountProvider {
@@ -58,3 +59,5 @@ export type NewInvitation = typeof invitationsTable.$inferInsert
 
 export type Tenant = typeof tenantsTable.$inferSelect
 export type NewTenant = typeof tenantsTable.$inferInsert
+
+export type Table = typeof masterTable.$inferSelect
