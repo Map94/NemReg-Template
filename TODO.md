@@ -26,3 +26,14 @@
 - [ ] Add table management UI
 - [ ] Add record management UI
 - [ ]
+
+## CRUD (Alex)
+
+- [ ]Make the Delete
+  - Make the logic // done
+  - position at card? inside the tables page only?
+  - Only admins should be able to delete tables
+  - Should also receive a confirmation message when trying to delete (IE: "Do you really want to delete this table?")
+- [ ]Make the insert(update)
+- [ ]Make the read(get)
+- [x]Make the create

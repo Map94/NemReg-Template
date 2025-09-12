@@ -25,7 +25,7 @@ export const tableService = {
 			databaseName: generateRandomString(8),
 		}
 
-		const foo = await client.transaction('write')
+		await client.transaction('write')
 
 		const didCreateTable = await tableStore.createTable(newTable)
 
@@ -33,5 +33,32 @@ export const tableService = {
 	},
 	listTables: async function (tenantId: Tenant['id']): Promise<Table[]> {
 		return await tableStore.listTable(tenantId)
+	},
+
+	deleteTable: async function (
+		tenantId: Tenant['id'],
+		input: { tableId: string },
+	): Promise<boolean> {
+		return await tableStore.deleteTable(input.tableId)
+	},
+
+	getTableById: async function (
+		tenantId: Tenant['id'],
+		tableId: string,
+	): Promise<Table | undefined> {
+		return await tableStore.getTableById(tableId, tenantId)
+	},
+
+	updateTableRow: async function (
+		tenantId: Tenant['id'],
+		input: { tableId: string; recordId: string; data: Record<string, any> },
+	): Promise<boolean> {
+		const result = await tableStore.updateTableRow(
+			input.tableId,
+			input.recordId,
+			input.data,
+			tenantId,
+		)
+		return result
 	},
 }
