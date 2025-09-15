@@ -61,7 +61,7 @@ export const tableService = {
 		)
 		return result
 	},
-	// Andreas
+
 	insertTableRow: async function (
 		tenantId: Tenant['id'],
 		input: { tableId: string; data: Record<string, any> },
@@ -73,7 +73,7 @@ export const tableService = {
 		)
 		return result
 	},
-	// Andreas
+
 	getTableData: async function (
 		tenantId: Tenant['id'],
 		input: {
