@@ -19,4 +19,16 @@ export const updateTableRowValidation = z.object({
 	recordId: z.string(),
 	data: z.record(z.string(), z.any()),
 })
+// Andreas
+export const insertTableRowValidation = z.object({
+	tableId: z.string(),
+	data: z.record(z.string(), z.any()),
+})
+// Andreas
+export const getTableDataValidation = z.object({
+	tableId: z.string(),
+	limit: z.number().optional(),
+	offset: z.number().optional(),
+})
+
 export type CreateTableInput = z.infer<typeof createTableValidation>

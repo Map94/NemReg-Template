@@ -61,4 +61,31 @@ export const tableService = {
 		)
 		return result
 	},
+	// Andreas
+	insertTableRow: async function (
+		tenantId: Tenant['id'],
+		input: { tableId: string; data: Record<string, any> },
+	): Promise<boolean> {
+		const result = await tableStore.insertTableRow(
+			input.tableId,
+			input.data,
+			tenantId,
+		)
+		return result
+	},
+	// Andreas
+	getTableData: async function (
+		tenantId: Tenant['id'],
+		input: {
+			tableId: string
+			limit?: number
+			offset?: number
+		},
+	): Promise<Record<string, any>[]> {
+		const data = await tableStore.getTableData(input.tableId, tenantId, {
+			limit: input.limit,
+			offset: input.offset,
+		})
+		return data
+	},
 }
