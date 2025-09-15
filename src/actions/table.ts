@@ -48,7 +48,7 @@ export const updateTableRowAction = authAction
 		const result = await tableService.updateTableRow(ctx.tenant.id, parsedInput)
 		return result
 	})
-// Andreas
+
 export const insertTableRowAction = authAction
 	.metadata({
 		actionName: 'insertTableRowAction',
@@ -57,7 +57,7 @@ export const insertTableRowAction = authAction
 	.action(async ({ parsedInput, ctx }) => {
 		await tableService.insertTableRow(ctx.tenant.id, parsedInput)
 	})
-// Andreas
+
 export const getTableDataAction = authAction
 	.metadata({ actionName: 'getTableDataAction' })
 	.inputSchema(getTableDataValidation)

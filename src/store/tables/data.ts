@@ -105,7 +105,7 @@ export const tableStore = {
 
 		return result.rowsAffected === 1
 	},
-	// Andreas
+
 	insertTableRow: async function (
 		databaseName: string,
 		data: Record<string, any>,
@@ -120,7 +120,7 @@ export const tableStore = {
 
 		return result.rowsAffected === 1
 	},
-	// Andreas
+
 	getTableData: async function (
 		databaseName: string,
 		tenantId: string,
@@ -132,7 +132,6 @@ export const tableStore = {
 	): Promise<Record<string, any>[]> {
 		const { sql, args } = generateSelectTableSql(
 			databaseName,
-			tenantId,
 			options?.limit,
 			options?.offset,
 		)
@@ -177,7 +176,7 @@ function generateUpdateTableSQL(
 
 	return { sql, args }
 }
-// Andreas
+
 function generateInsertTableSQL(
 	databaseName: string,
 	data: Record<string, any>,
@@ -194,7 +193,7 @@ function generateInsertTableSQL(
 	const args = values
 	return { sql, args }
 }
-// Andreas
+
 function generateSelectTableSql(
 	databaseName: string,
 	limit?: number,
