@@ -29,11 +29,13 @@
 
 ## CRUD (Alex)
 
-- [ ]Make the Delete
+- [x]Make the Delete
   - Make the logic // done
   - position at card? inside the tables page only?
   - Only admins should be able to delete tables
   - Should also receive a confirmation message when trying to delete (IE: "Do you really want to delete this table?")
-- [ ]Make the insert(update)
-- [ ]Make the read(get)
+- [x]Make the update
+- [x]Make the get
 - [x]Make the create
+- [x]Make the insert (getTableRowAction)
+- [x]Make the read (getTableDataAction)
