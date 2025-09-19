@@ -11,20 +11,57 @@ import {
 
 export const description = 'A stacked area chart'
 
-const chartData = [
-	{ month: 'January', desktop: 200, mobile: 80, total: 200 + 80 },
-	{ month: 'February', desktop: 305, mobile: 200, total: 305 + 200 },
-	{ month: 'March', desktop: 237, mobile: 120, total: 237 + 120 },
-	{ month: 'April', desktop: 73, mobile: 190, total: 73 + 190 },
-	{ month: 'May', desktop: 209, mobile: 130, total: 209 + 130 },
-	{ month: 'June', desktop: 214, mobile: 140, total: 214 + 140 },
-	{ month: 'July', desktop: 269, mobile: 169, total: 269 + 169 },
-]
+function randomBetween(factor: number) {
+	return Math.floor(Math.random() * factor)
+}
+
+function getChartData() {
+	return [
+		{
+			month: 'January',
+			desktop: randomBetween(100),
+			mobile: randomBetween(400),
+		},
+		{
+			month: 'February',
+			desktop: randomBetween(100),
+			mobile: randomBetween(400),
+		},
+		{
+			month: 'March',
+			desktop: randomBetween(100),
+			mobile: randomBetween(400),
+		},
+		{
+			month: 'April',
+			desktop: randomBetween(100),
+			mobile: randomBetween(400),
+		},
+		{
+			month: 'May',
+			desktop: randomBetween(100),
+			mobile: randomBetween(400),
+		},
+		{
+			month: 'June',
+			desktop: randomBetween(100),
+			mobile: randomBetween(400),
+		},
+		{
+			month: 'July',
+			desktop: randomBetween(100),
+			mobile: randomBetween(400),
+		},
+	].map(item => ({
+		...item,
+		total: item.desktop + item.mobile,
+	}))
+}
 
 const chartConfig = {
 	desktop: {
 		label: 'Desktop',
-		color: 'var(--chart-1)',
+		color: 'var(--chart-5)',
 	},
 	mobile: {
 		label: 'Mobile',
@@ -41,7 +78,7 @@ export function ChartAreaAxes() {
 		<ChartContainer config={chartConfig} className='h-[100px] w-full'>
 			<AreaChart
 				accessibilityLayer
-				data={chartData}
+				data={getChartData()}
 				margin={{
 					left: 2,
 					right: 2,
@@ -66,7 +103,7 @@ export function ChartAreaAxes() {
 					fill='var(--color-desktop)'
 					fillOpacity={0.4}
 					stroke='var(--color-desktop)'
-					stackId='a'
+					stackId='b'
 				/>
 				<Area
 					dataKey='total'
@@ -76,7 +113,7 @@ export function ChartAreaAxes() {
 					stroke='var(--color-total)'
 					strokeWidth={0}
 					activeDot={false}
-					stackId='b'
+					stackId='a'
 				/>
 			</AreaChart>
 		</ChartContainer>

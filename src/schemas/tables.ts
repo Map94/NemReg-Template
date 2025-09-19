@@ -3,8 +3,10 @@ import z from 'zod'
 
 export const createTableValidation = z.object({
 	displayName: z.string(),
+	displayDescription: z.string().optional(),
 	columns: z.array(columnValidation.omit({ id: true, databaseName: true })),
 })
+export type CreateTableInput = z.infer<typeof createTableValidation>
 
 export const deleteTableValidation = z.object({
 	tableId: z.string(),
@@ -20,6 +22,8 @@ export const updateTableRowValidation = z.object({
 	data: z.record(z.string(), z.any()),
 })
 
+
+
 export const insertTableRowValidation = z.object({
 	tableId: z.string(),
 	data: z.record(z.string(), z.any()),
@@ -32,3 +36,4 @@ export const getTableDataValidation = z.object({
 })
 
 export type CreateTableInput = z.infer<typeof createTableValidation>
+

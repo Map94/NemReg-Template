@@ -6,7 +6,9 @@ import {
 	ViewProvider,
 } from '@/components/table-overview/table-view-container'
 
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
+import { Link } from '@/i18n/navigation'
+import { cn } from '@/lib/utils'
 import { tableService } from '@/service/table/service'
 
 import { getTranslations } from 'next-intl/server'
@@ -20,12 +22,14 @@ async function Home({ user, tenant }: WithAuthProps) {
 
 	return (
 		<ViewProvider>
-			<Page.Header className='bg-background border-b z-10'>
+			<Page.Header className='bg-background z-10'>
 				<Page.Title>{homeT('title')}</Page.Title>
 				<Page.Actions>
-					<Button size='icon' variant='ghost'>
+					<Link
+						className={cn(buttonVariants({ size: 'icon', variant: 'ghost' }))}
+						href={'/tables'}>
 						<Icons.plus />
-					</Button>
+					</Link>
 					<TableViewContainer tables={tables} user={user} headerButton />
 				</Page.Actions>
 			</Page.Header>
