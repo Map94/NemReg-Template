@@ -3,6 +3,10 @@
 		"title": "Dashboard",
 		"description": "Din komplette dataforvaltningsløsning"
 	},
+	"tablesPage": {
+		"tableNotFound": "Tabell ikke funnet",
+		"tableNotFoundDescription": "Tabell med ID \"{tableId}\" eksisterer ikke, eller du har ikke tilgang til den."
+	},
 	"Auth": {
 		"signIn": "Logg inn",
 		"signUp": "Opprett konto",

@@ -2,7 +2,7 @@ import {
 	ChartSpline,
 	Check,
 	ChevronsUpDown,
-	Eclipse,
+	Ellipsis,
 	Hash,
 	Home,
 	Languages,
@@ -16,13 +16,16 @@ import {
 	Moon,
 	Plus,
 	Rows4,
+	Search,
 	Settings2,
 	Sparkle,
 	Star,
 	Sun,
 	Table2,
+	Type,
 	User,
 	Warehouse,
+	X,
 } from 'lucide-react'
 import React from 'react'
 
@@ -40,7 +43,6 @@ export const Icons = {
 	logout: (props: IconProps) => <LogOut {...props} />,
 	user: (props: IconProps) => <User {...props} />,
 	upDownChevron: (props: IconProps) => <ChevronsUpDown {...props} />,
-	eclipse: (props: IconProps) => <Eclipse {...props} />,
 	warehouse: (props: IconProps) => <Warehouse {...props} />,
 	check: (props: IconProps) => <Check {...props} />,
 	loader: (props: IconProps) => <Loader2 {...props} />,
@@ -53,4 +55,8 @@ export const Icons = {
 	chartspline: (props: IconProps) => <ChartSpline {...props} />,
 	grid: (props: IconProps) => <LayoutGrid {...props} />,
 	listlayout: (props: IconProps) => <List {...props} />,
+	cross: X,
+	search: Search,
+	ellipsis: Ellipsis,
+	type: Type,
 }

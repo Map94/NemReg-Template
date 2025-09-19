@@ -22,7 +22,7 @@ export function Sidebar({
 		navMain: [
 			{
 				title: t('home'),
-				url: '#',
+				url: '/',
 				icon: <Icons.home />,
 			},
 			{

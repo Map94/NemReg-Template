@@ -204,7 +204,7 @@ function generateSelectTableSql(
 	let sql = `SELECT * FROM ${tableName}`
 	const args: any[] = []
 
-	sql += ' ORDER BY id'
+	sql += ' ORDER BY rowid'
 
 	if (limit) {
 		sql += ' LIMIT ?'

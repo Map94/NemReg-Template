@@ -3,6 +3,10 @@
 		"title": "Dashboard",
 		"description": "Your complete data management solution"
 	},
+	"tablesPage": {
+		"tableNotFound": "Table Not Found",
+		"tableNotFoundDescription": "Table with ID \"{tableId}\" does not exist or you don't have access to it."
+	},
 	"Auth": {
 		"signIn": "Sign In",
 		"signUp": "Sign Up",

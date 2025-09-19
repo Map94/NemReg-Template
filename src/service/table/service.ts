@@ -49,25 +49,37 @@ export const tableService = {
 		return await tableStore.getTableById(tableId, tenantId)
 	},
 
-	updateTableRow: async function (
+	insertTableRow: async function (
 		tenantId: Tenant['id'],
-		input: { tableId: string; recordId: string; data: Record<string, any> },
+		input: { tableId: string; data: Record<string, any> },
 	): Promise<boolean> {
-		const result = await tableStore.updateTableRow(
-			input.tableId,
-			input.recordId,
+		const table = await tableStore.getTableById(input.tableId, tenantId)
+
+		if (!table) {
+			throw new Error('Table not found')
+		}
+
+		const result = await tableStore.insertTableRow(
+			table.databaseName,
 			input.data,
 			tenantId,
 		)
 		return result
 	},
 
-	insertTableRow: async function (
+	updateTableRow: async function (
 		tenantId: Tenant['id'],
-		input: { tableId: string; data: Record<string, any> },
+		input: { tableId: string; recordId: string; data: Record<string, any> },
 	): Promise<boolean> {
-		const result = await tableStore.insertTableRow(
-			input.tableId,
+		const table = await tableStore.getTableById(input.tableId, tenantId)
+
+		if (!table) {
+			throw new Error('Table not found')
+		}
+
+		const result = await tableStore.updateTableRow(
+			table.databaseName,
+			input.recordId,
 			input.data,
 			tenantId,
 		)
@@ -82,7 +94,13 @@ export const tableService = {
 			offset?: number
 		},
 	): Promise<Record<string, any>[]> {
-		const data = await tableStore.getTableData(input.tableId, tenantId, {
+		const table = await tableStore.getTableById(input.tableId, tenantId)
+
+		if (!table) {
+			throw new Error('Table not found')
+		}
+
+		const data = await tableStore.getTableData(table.databaseName, tenantId, {
 			limit: input.limit,
 			offset: input.offset,
 		})
