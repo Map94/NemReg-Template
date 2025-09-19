@@ -105,6 +105,41 @@ export const tableStore = {
 
 		return result.rowsAffected === 1
 	},
+
+	insertTableRow: async function (
+		databaseName: string,
+		data: Record<string, any>,
+		tenantId: string,
+	): Promise<boolean> {
+		const { sql, args } = generateInsertTableSQL(databaseName, data)
+
+		const result = await client.execute({
+			sql: sql,
+			args: args,
+		})
+
+		return result.rowsAffected === 1
+	},
+
+	getTableData: async function (
+		databaseName: string,
+		tenantId: string,
+		options?: {
+			limit?: number
+			offset?: number
+			// Future spot for search, filters and sorting
+		},
+	): Promise<Record<string, any>[]> {
+		const { sql, args } = generateSelectTableSql(
+			databaseName,
+			options?.limit,
+			options?.offset,
+		)
+
+		const result = await client.execute({ sql, args })
+
+		return result.rows as Record<string, any>[]
+	},
 }
 
 function generateCreateTableSQL(
@@ -138,6 +173,48 @@ function generateUpdateTableSQL(
 
 	const sql = `UPDATE ${tableName} SET ${setClauses} WHERE id = ?`
 	const args = [...values, recordId]
+
+	return { sql, args }
+}
+
+function generateInsertTableSQL(
+	databaseName: string,
+	data: Record<string, any>,
+): { sql: string; args: any[] } {
+	const tableName = `"${databaseName}"`
+	const columns = Object.keys(data)
+	const values = Object.values(data)
+
+	const columnList = columns.map(col => `"${col}"`).join(', ')
+
+	const placeholders = columns.map(() => '?').join(', ')
+
+	const sql = `INSERT INTO ${tableName} (${columnList}) VALUES (${placeholders})`
+	const args = values
+	return { sql, args }
+}
+
+function generateSelectTableSql(
+	databaseName: string,
+	limit?: number,
+	offset?: number,
+): { sql: string; args: any[] } {
+	const tableName = `"${databaseName}"`
+
+	let sql = `SELECT * FROM ${tableName}`
+	const args: any[] = []
+
+	sql += ' ORDER BY id'
+
+	if (limit) {
+		sql += ' LIMIT ?'
+		args.push(limit)
+	}
+
+	if (offset && limit) {
+		sql += ' OFFSET ?'
+		args.push(offset)
+	}
 
 	return { sql, args }
 }
