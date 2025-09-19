@@ -1,7 +1,9 @@
 import {
 	ChartSpline,
 	Check,
+	ChevronDown,
 	ChevronsUpDown,
+	ChevronUp,
 	Eclipse,
 	Hash,
 	Home,
@@ -21,6 +23,7 @@ import {
 	Star,
 	Sun,
 	Table2,
+	Trash2,
 	User,
 	Warehouse,
 } from 'lucide-react'
@@ -53,4 +56,7 @@ export const Icons = {
 	chartspline: (props: IconProps) => <ChartSpline {...props} />,
 	grid: (props: IconProps) => <LayoutGrid {...props} />,
 	listlayout: (props: IconProps) => <List {...props} />,
+	trash: (props: IconProps) => <Trash2 {...props} />,
+	up: (props: IconProps) => <ChevronUp {...props} />,
+	down: (props: IconProps) => <ChevronDown {...props} />,
 }

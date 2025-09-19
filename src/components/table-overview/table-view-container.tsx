@@ -1,6 +1,5 @@
 'use client'
 
-import { createTableAction } from '@/actions/table'
 import { Icons } from '@/components/common/icons'
 import { ChartAreaAxes } from '@/components/table-overview/chartArea'
 import { FavoriteButton } from '@/components/table-overview/favorite-button'
@@ -15,12 +14,9 @@ import {
 	CardTitle,
 } from '@/components/ui/card'
 import { Link } from '@/i18n/navigation'
-import { ColumnType, Table } from '@/store/tables/models'
+import { Table } from '@/store/tables/models'
 import { useTranslations } from 'next-intl'
-import { useAction } from 'next-safe-action/hooks'
 import { createContext, useContext, useState } from 'react'
-import { toast } from 'sonner'
-import { Button } from '../ui/button'
 
 interface TableViewContainerProps {
 	tables: Table[]
@@ -81,43 +77,9 @@ export function TableViewContent({
 	const { isGridView } = useViewContext()
 	const t = useTranslations()
 
-	const { execute, isExecuting } = useAction(createTableAction, {
-		onError(args) {
-			console.log(args)
-			toast('table not created')
-		},
-		onSuccess(args) {
-			toast('table created')
-		},
-	})
-
 	return (
 		<main
 			className={`w-full  ${isGridView ? 'grid grid-cols-4 gap-4 items-center sm:items-start ' : 'flex flex-col gap-2'}`}>
-			<Button
-				size='icon'
-				onClick={() =>
-					execute({
-						displayName: 'Test tabel',
-						columns: [
-							{
-								displayName: 'Name',
-								type: ColumnType.Text,
-							},
-							{
-								displayName: 'Age',
-								type: ColumnType.Integer,
-							},
-							{
-								displayName: 'Email',
-								type: ColumnType.Text,
-							},
-						],
-					})
-				}>
-				{isExecuting && <Icons.loader />}
-				<Icons.plus />
-			</Button>
 			{tables.map(table => (
 				<Link
 					key={table.id}
@@ -136,7 +98,9 @@ export function TableViewContent({
 								</CardTitle>
 
 								<CardDescription className='line-clamp-1'>
-									{table.displayDescription}
+									{table.displayDescription
+										? table.displayDescription
+										: 'No description'}
 								</CardDescription>
 								<CardAction>
 									<FavoriteButton tableId={table.id} />

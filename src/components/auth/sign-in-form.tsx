@@ -22,7 +22,7 @@ export function SignInForm() {
 	const router = useRouter()
 	const t = useTranslations('Auth')
 	const authT = useTranslations('auth')
-	const validationT = useTranslations('validation')
+	const validationT = useTranslations('validations')
 
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')

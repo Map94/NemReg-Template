@@ -8,11 +8,13 @@ import {
 	updateTableRowValidation,
 } from '@/schemas/tables'
 import { tableService } from '@/service/table/service'
+import { flattenValidationErrors } from 'next-safe-action'
 
 export const createTableAction = authAction
 	.metadata({ actionName: 'createTableAction' })
 	.inputSchema(createTableValidation)
 	.action(async ({ parsedInput, ctx }) => {
+		console.log('action hit', parsedInput)
 		const table = await tableService.createTable(
 			ctx.tenant.id,
 			ctx.user.id,
@@ -22,7 +24,10 @@ export const createTableAction = authAction
 
 export const deleteTableAction = adminAction
 	.metadata({ actionName: 'deleteTableAction' })
-	.inputSchema(deleteTableValidation)
+	.inputSchema(deleteTableValidation, {
+		handleValidationErrorsShape: async ve =>
+			flattenValidationErrors(ve).fieldErrors,
+	})
 	.action(async ({ parsedInput, ctx }) => {
 		await tableService.deleteTable(ctx.tenant.id, parsedInput)
 	})
