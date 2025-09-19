@@ -24,15 +24,19 @@
 - [x] Implement backend logic for tables
 - [ ] Implement dynamic table data storage
 - [ ] Add table management UI
+  - add the text in json format
+  - add the design later
 - [ ] Add record management UI
+- [ ] add Suomi language
+- [ ] pictures/Files etc (prio after v1 is done)
 - [ ]
 
-## CRUD (Alex)
+## CRUD (Alex) done (backend)
 
 - [x]Make the Delete
   - Make the logic // done
   - position at card? inside the tables page only?
-  - Only admins should be able to delete tables
+  - Only admins should be able to delete tables // done
   - Should also receive a confirmation message when trying to delete (IE: "Do you really want to delete this table?")
 - [x]Make the update
 - [x]Make the get
