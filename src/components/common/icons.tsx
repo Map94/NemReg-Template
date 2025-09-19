@@ -1,8 +1,11 @@
 import {
 	ChartSpline,
 	Check,
+	ChevronDown,
 	ChevronsUpDown,
 	Ellipsis,
+	ChevronUp,
+	Eclipse,
 	Hash,
 	Home,
 	Languages,
@@ -23,6 +26,7 @@ import {
 	Sun,
 	Table2,
 	Type,
+	Trash2,
 	User,
 	Warehouse,
 	X,
@@ -59,4 +63,7 @@ export const Icons = {
 	search: Search,
 	ellipsis: Ellipsis,
 	type: Type,
+	trash: (props: IconProps) => <Trash2 {...props} />,
+	up: (props: IconProps) => <ChevronUp {...props} />,
+	down: (props: IconProps) => <ChevronDown {...props} />,
 }

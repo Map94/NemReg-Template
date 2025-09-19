@@ -22,16 +22,7 @@ export interface ActivityDetails {
 	newValues?: Record<string, any>
 }
 
-export type FieldType =
-	| 'TEXT'
-	| 'TEXTAREA'
-	| 'INTEGER'
-	| 'REAL'
-	| 'BOOLEAN'
-	| 'DATE'
-	| 'TIMESTAMP'
-	| 'EMAIL'
-	| 'URL'
-	| 'SELECT'
-	| 'PHONE'
-	| 'CURRENCY'
+export enum FieldType {
+	Text = 'TEXT',
+	Numeric = 'NUMERIC',
+}
